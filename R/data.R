@@ -55,7 +55,8 @@
 #'  December 2016. Each month contains approximately 50000 records (except
 #'  \code{2014_10}).
 #'
-#'@format Data frames with approximately 50000 records of 7 variables.
+#' @format Data frames with approximately 50000 records of 7 variables.
+#'
 #' @name month_datasets
 "2014_10"
 #' @rdname month_datasets
@@ -110,3 +111,57 @@
 "2016_11"
 #' @rdname month_datasets
 "2016_12"
+
+
+#' Weather for 2014-10 to 2016-12
+#'
+#' Daily weather records for Bath from
+#'  \href{https://www.wunderground.com/history/airport/EGTG/}{wunderground.com}
+#'  for 2014-10-17 to 2016-12-27
+#'
+#' @format Data frame with 803 records of 8 variables:
+#' \describe{
+#'  \item{Date}{date of record}
+#'  \item{MeanTemperatureC}{mean air temperature in degrees Celsius}
+#'  \item{MeanHumidity}{mean air humidity, as a percentage}
+#'  \item{MeanWindSpeedKmh}{mean wind speed in km/h}
+#'  \item{Precipitationmm}{daily rainfall in mm}
+#'  \item{Rain}{logical indicating presence of rain}
+#'  \item{Fog}{logical indicating presence of fog}
+#'  \item{Snow}{logical indicating presence of snow}
+#' }
+#'
+#' @name weather
+"weather"
+
+
+#' Bath Rugby home matches
+#'
+#' Dates and kick-off times for Bath Rugby's home matches from September 2014 to
+#'  December 2016, and the outcome of each match
+#'
+#' @format Data frame with 43 records of 2 variables:
+#' \describe{
+#'  \item{GMT}{kick-off time and date}
+#'  \item{HomeWin}{logical indicating whether Bath were victorious}
+#' }
+#'
+#' @name rugby
+"rugby"
+
+
+#' Number of advertised events in Bath by date
+#'
+#' The number of events listed on \url{http://www.bath.co.uk/events/} for each
+#'  day in October 2014 through to December 2016.
+#'
+#' @format Data frame with 823 records of 2 variables:
+#' \describe{
+#'  \item{Date}{date-time object}
+#'  \item{count}{number of listed events}
+#' }
+#'
+#' @name events
+"events"
+
+
