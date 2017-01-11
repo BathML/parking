@@ -12,12 +12,9 @@ The full dataset of car parking records
 \description{
 Reads the entire CSV file found on the Bath: Hacked datastore
  (\url{http://bit.ly/2i3Y1uF}). The data frame created can subsequently be
- updated using \code{\link{refuel_crude}}.
-}
-\section{Warning}{
-
-The file is very large! This may take a while to run, depending on your
- internet connection.
+ updated using \code{\link{refuel_crude}}.\cr
+ \emph{\strong{Warning:} The file is very large! This may take a while to
+ run, depending on your internet connection.}
 }
 \examples{
 raw_data <- get_all_crude()

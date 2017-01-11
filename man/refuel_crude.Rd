@@ -10,6 +10,9 @@ refuel_crude(x)
 \item{x}{The data frame of raw records from the Bath: Hacked datastore (see
 \code{\link{get_all_crude}}).}
 }
+\value{
+The data frame updated with any more recent records.
+}
 \description{
 Update  data frame of raw records with any records that have since been added
  to the Bath: Hacked datastore.

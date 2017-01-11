@@ -2,6 +2,8 @@
 
 export("%>%")
 export(get_all_crude)
+export(get_events)
+export(get_rugby)
 export(refine)
 export(refuel)
 export(refuel_crude)

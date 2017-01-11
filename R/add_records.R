@@ -2,10 +2,9 @@
 #'
 #' Reads the entire CSV file found on the Bath: Hacked datastore
 #'  (\url{http://bit.ly/2i3Y1uF}). The data frame created can subsequently be
-#'  updated using \code{\link{refuel_crude}}.
-#' @section Warning:
-#' The file is very large! This may take a while to run, depending on your
-#'  internet connection.
+#'  updated using \code{\link{refuel_crude}}.\cr
+#'  \emph{\strong{Warning:} The file is very large! This may take a while to
+#'  run, depending on your internet connection.}
 #'
 #' @return The full dataset of car parking records
 #' @examples
@@ -39,6 +38,7 @@ get_all_crude <- function() {
 #'
 #' @param x The data frame of raw records from the Bath: Hacked datastore (see
 #'  \code{\link{get_all_crude}}).
+#' @return The data frame updated with any more recent records.
 #' @examples
 #' raw_data <- refuel_crude(raw_data)
 #' @seealso
@@ -86,6 +86,7 @@ refuel_crude <- function(x) {
 #' @param x The result of calling \code{\link{refine}} on the data frame of
 #'  records from the Bath: Hacked datastore (see \code{\link{get_all_crude}}).
 #' @param max_prop,first_upload See \code{\link{refine}}.
+#' @return The data frame updated with any more recent records.
 #' @examples
 #' DF <- refuel(DF)
 #' @seealso

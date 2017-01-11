@@ -10,7 +10,6 @@
 #'  \item Remove records with negative occupancies
 #'  \item Calculate Proportion column (Occupancy/Capacity)
 #'  \item Remove records with Proportion greater than \code{max_prop}
-#'  \item Convert date strings to POSIXct date-time objects
 #'  \item Remove duplicate records (see \code{first_upload})
 #' }
 #'
@@ -39,11 +38,11 @@
 #' some_records <- raw_data[1:1000, ]
 #'
 #' dim(some_records)
-#' ## 1000   12
+#' ## 1000   16
 #'
 #' DF <- refine(raw_data)
 #' dim(DF)
-#' ## 893   7
+#' ## 813   7
 #' @export
 
 refine <- function(x, max_prop = 1.1, first_upload = FALSE) {

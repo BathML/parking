@@ -12,6 +12,9 @@ records from the Bath: Hacked datastore (see \code{\link{get_all_crude}}).}
 
 \item{max_prop, first_upload}{See \code{\link{refine}}.}
 }
+\value{
+The data frame updated with any more recent records.
+}
 \description{
 Update data frame of records already processed with \code{\link{refine}} with
  any records that have since been added to the Bath: Hacked datastore.
