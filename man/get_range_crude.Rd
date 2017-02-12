@@ -2,20 +2,34 @@
 % Please edit documentation in R/add_records.R
 \name{get_range_crude}
 \alias{get_range_crude}
-\title{Download records from a specified date range from the Bath: Hacked datastore}
+\title{Download records from a specified range from the Bath: Hacked datastore}
 \usage{
-get_range_crude(from = NA, to = NA)
+get_range_crude(from = NULL, to = NULL, abbrs = NULL)
 }
 \arguments{
 \item{from}{Datetime object for the earliest record to retrieve.}
 
 \item{to}{Datetime object for the latest record to retrieve.}
+
+\item{abbrs}{Abbreviations of names of car parks from which to retrieve
+records:
+\describe{
+  \item{as}{Avon Street CP}
+  \item{cs}{Charlotte Street CP}
+  \item{l}{Lansdown P+R}
+  \item{n}{Newbridge P+R}
+  \item{od}{Odd Down P+R}
+  \item{p}{Podium CP}
+  \item{sg}{SouthGate General CP}
+  \item{sr}{Southgate Rail CP}
+  \item{t}{test car park}
+}}
 }
 \value{
 Car parking records from the specified date range.
 }
 \description{
-Retrieve raw records uploaded to the datastore within a specified date range.
+Retrieve raw records uploaded to the datastore within a specified date range and/or from a subset of car parks.
 }
 \examples{
 library(lubridate)
@@ -24,11 +38,13 @@ library(lubridate)
 raw_data <- get_range_crude(ymd_hms("2016-06-01 00:00:00"),
                             ymd_hms("2016-06-30 23:59:59"))
 
-# All records since 14:30 on 1st January 2017
-raw_data <- get_range_crude(from = ymd_hms("2017-01-01 14:30:00"))
+# All records from Podium CP since 14:30 on 1st January 2017
+raw_data <- get_range_crude(from = ymd_hms("2017-01-01 14:30:00"),
+                            abbrs = "p")
 
-# All records from before 2015
-raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"))
+# All records from P+Rs before 2015
+raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"),
+                            abbrs = c("l", "n", "od"))
 
 
 # Retrieve all records (identical to get_all_crude)
