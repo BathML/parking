@@ -16,11 +16,12 @@ Data is open-source and is provided by Bath and North East Somerset Council in c
 
 ## Functions:
 
-* `get_all_crude` for retrieving dataset of records from Bath: Hacked datastore
+* `get_all_crude` (and `get_range_crude`) for retrieving the full dataset (or a subset) of records from Bath: Hacked datastore
 * `refine` for processing the raw records
 * `refuel` and `refuel_crude` for updating existing data frames with recent records
 * `get_rugby` and `get_events` for obtaining information through web-scraping
 
 
-**Version:** 0.1.1
+**Version:** 0.1.2
+
 **Contact:** Owen Jones (olj23@bath.ac.uk)

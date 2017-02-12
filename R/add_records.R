@@ -24,6 +24,7 @@ get_all_crude <- function() {
     link <- paste0("https://data.bathhacked.org/resource/fn2s-zq2k.csv?",
                    "$limit=10000000&$order=dateuploaded&",
                    "$$app_token=", token)
+    message("Making request to Socrata Open Data API...")
     df <- readr::read_csv(link, col_types = "iTcicTciiiiciiic")
     message(sprintf("Downloaded all %i records from Bath: Hacked datastore!",
                     nrow(df)))
@@ -123,4 +124,78 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
                            " datastore!\n  Records added: %s to %s"),
                     n, new_records$lastupdate[1], new_records$lastupdate[n]))
     added
+}
+
+
+#' Download records from a specified range from the Bath: Hacked datastore
+#'
+#' Retrieve raw records uploaded to the datastore within a specified date range and/or from a subset of car parks.
+#'
+#' @param from Datetime object for the earliest record to retrieve.
+#' @param to Datetime object for the latest record to retrieve.
+#' @param abbrs Abbreviations of names of car parks from which to retrieve
+#'   records:
+#'   \describe{
+#'     \item{as}{Avon Street CP}
+#'     \item{cs}{Charlotte Street CP}
+#'     \item{l}{Lansdown P+R}
+#'     \item{n}{Newbridge P+R}
+#'     \item{od}{Odd Down P+R}
+#'     \item{p}{Podium CP}
+#'     \item{sg}{SouthGate General CP}
+#'     \item{sr}{Southgate Rail CP}
+#'     \item{t}{test car park}
+#'   }
+#' @return Car parking records from the specified date range.
+#' @examples
+#' library(lubridate)
+#'
+#' # Records for June 2016
+#' raw_data <- get_range_crude(ymd_hms("2016-06-01 00:00:00"),
+#'                             ymd_hms("2016-06-30 23:59:59"))
+#'
+#' # All records from Podium CP since 14:30 on 1st January 2017
+#' raw_data <- get_range_crude(from = ymd_hms("2017-01-01 14:30:00"),
+#'                             abbrs = "p")
+#'
+#' # All records from P+Rs before 2015
+#' raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"),
+#'                             abbrs = c("l", "n", "od"))
+#'
+#'
+#' # Retrieve all records (identical to get_all_crude)
+#' raw_data <- get_range_crude()
+#' @seealso \code{\link{get_all_crude}}
+#' @export
+
+get_range_crude <- function(from = NULL, to = NULL, abbrs = NULL) {
+    token <- "3YCzwzu21i55UgommFeIikrkm"
+    if (!is.null(abbrs)) {
+        full <- c("Avon%20Street%20CP", "Charlotte%20Street%20CP", "Lansdown%20P%2BR",
+                   "Newbridge%20P%2BR", "Odd%20Down%20P%2BR", "Podium%20CP",
+                   "SouthGate%20General%20CP", "SouthGate%20Rail%20CP",
+                   "test%20car%20park")
+        names(full) <- c("as", "cs", "l", "n", "od", "p", "sg", "sr", "t")
+        abbrsfull <- full[abbrs]
+        abbrsstring <- paste(abbrsfull, collapse = "%27,%20%27")
+    }
+    link <- paste0("https://data.bathhacked.org/resource/fn2s-zq2k.csv?",
+                   "$limit=10000000&$order=dateuploaded",
+                   ifelse(is.null(from), "",
+                          paste0("&$where=dateuploaded%20>=%20%27",
+                                 gsub(" ", "T", (from - 0.5)), "%27")),
+                   ifelse(is.null(to), "",
+                          paste0(ifelse(is.null(from), "&$where=", "%20and%20"),
+                                 "dateuploaded%20<=%20%27",
+                                 gsub(" ", "T", (to - 0.5)), "%27")),
+                   ifelse(is.null(abbrs), "",
+                          paste0(ifelse(is.null(c(from, to)),
+                                        "&$where=", "%20and%20"),
+                                 "name%20in(%27", abbrsstring, "%27)")),
+                   "&$$app_token=", token)
+    message("Making request to Socrata Open Data API...")
+    df <- readr::read_csv(link, col_types = "iTcicTciiiiciiic")
+    message(sprintf("Downloaded %i records from Bath: Hacked datastore!",
+                    nrow(df)))
+    df
 }
