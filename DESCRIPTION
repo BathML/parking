@@ -11,10 +11,23 @@ License: GPL-3
 LazyData: TRUE
 URL: https://github.com/owenjonesuob/BANEScarparking
 Imports:
+    assertthat,
+    curl,
+    DBI,
     dplyr,
     httr,
+    jsonlite,
+    lazyeval,
     lubridate,
+    magrittr,
+    mime,
+    openssl,
+    R6,
+    Rcpp,
     RCurl,
     readr,
+    stringr,
+    tibble,
+    utils,
     XML
 RoxygenNote: 5.0.1
