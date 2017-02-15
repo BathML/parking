@@ -31,6 +31,8 @@ To install the package just run this command in the R console:
 ```
 devtools::install_github("owenjonesuob/BANEScarparking")
 ```
+(You'll need the `devtools` package to do this - you can install it with `install.packages("devtools")`!)
+
 Then you can load the package with
 ```
 library(BANEScarparking)
