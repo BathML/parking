@@ -6,7 +6,7 @@
     messages[2] <- paste0("Fun fact: at 15:29 on 5th May 2015, ",
                           "SouthGate General CP contained -14787 cars")
     messages[3] <- "Have you tried asking R if \"Team R\" > \"Team Python\"?"
-    messages[4] <- "Bath Machine Learning Meetup => iMpenetraBLe huMan teaching"
+    messages[14] <- "Bath Machine Learning Meetup => iMpenetraBLe huMan teaching"
     messages[5] <- "ALL YOUR BANES ARE BELONG TO US"
     messages[6] <- "We think, therefore we R"
     messages[7] <- "More records than Guinness"
@@ -20,7 +20,7 @@
     messages[12] <- paste0("All programmers are playwrights, and all computers",
                            " are lousy actors")
     messages[13] <- "There's always one more bug (Lubarsky's law)"
-    messages[14] <- paste0("To understand recursion you must first ",
+    messages[4] <- paste0("To understand recursion you must first ",
                            "understand recursion")
 
     i <- sample(1:14, 1)
