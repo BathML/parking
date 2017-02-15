@@ -21,7 +21,7 @@
 #' }
 #'
 
-#' @name full_dataset
+#' @name DF
 "DF"
 
 
