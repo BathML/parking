@@ -28,4 +28,3 @@ DF <- refuel(DF)
  \item \code{\link{refuel_crude}} for updating data frame of raw records
 }
 }
-

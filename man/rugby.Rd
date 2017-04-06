@@ -17,4 +17,3 @@ Dates and kick-off times for Bath Rugby's home matches from September 2014 to
  December 2016, and the outcome of each match
 }
 \keyword{datasets}
-

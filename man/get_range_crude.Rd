@@ -53,4 +53,3 @@ raw_data <- get_range_crude()
 \seealso{
 \code{\link{get_all_crude}}
 }
-

@@ -7,15 +7,15 @@
 get_events(from, to)
 }
 \arguments{
-\item{from}{A date or date-time object, or string, of a date within the first
-month from which events are to be counted.}
+\item{from}{A date or date-time object, or YYYY-MM-DD string: the first day
+from which to get an event count.}
 
-\item{to}{A date or date-time object, or string, of a date within the last
-month from which events are to be counted.}
+\item{to}{A date or date-time object, or YYYY-MM-DD string: the last day
+from which to get an event count.}
 }
 \value{
 A data frame of daily event counts for each day in the specified
- range of months.
+ range.
 }
 \description{
 Web scraping function to retrieve the number of events advertised at
@@ -27,7 +27,7 @@ Web scraping function to retrieve the number of events advertised at
   detailed commentary!}
 }
 \examples{
-# Return daily event counts from 01 Oct 2014 to 31 Jul 2015
+# Return daily event counts from 01 Oct 2014 to 17 Jul 2015
 events <- get_events("2014-10-01", "2015-07-17")
 
 # Return daily event counts for all months in date range of parking records
@@ -36,4 +36,3 @@ DF <- refine(raw_data)
 
 events <- get_events(min(DF$LastUpdate), max(DF$LastUpdate))
 }
-

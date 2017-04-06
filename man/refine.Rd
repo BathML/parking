@@ -57,4 +57,3 @@ DF <- refine(raw_data)
 dim(DF)
 ## 813   7
 }
-

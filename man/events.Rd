@@ -17,4 +17,3 @@ The number of events listed on \url{http://www.bath.co.uk/events/} for each
  day in October 2014 through to December 2016.
 }
 \keyword{datasets}
-

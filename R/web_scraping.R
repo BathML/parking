@@ -18,6 +18,9 @@
 
 get_rugby <- function(x) {
 
+    # Set up data frame, to be added to shortly
+    rugby <- data.frame(GMT = character(0), HomeWin = logical(0))
+
     # For each season:
     for (i in 1:length(x)) {
 
@@ -25,9 +28,6 @@ get_rugby <- function(x) {
         address <- paste0("http://www.bathrugby.com/fixtures-results/",
                           "results-tables/results-match-reports/",
                           "?seasonEnding=", x[i])
-
-        # Set up data frame, to be added to shortly
-        rugby <- data.frame(GMT = character(0), HomeWin = logical(0))
 
 
         # "Parse" page so we can work with it in R
@@ -126,14 +126,14 @@ get_rugby <- function(x) {
 #'   followed. See \code{\link{get_rugby}} for a similar function with more
 #'   detailed commentary!}
 #'
-#' @param from A date or date-time object, or string, of a date within the first
-#'  month from which events are to be counted.
-#' @param to A date or date-time object, or string, of a date within the last
-#'  month from which events are to be counted.
+#' @param from A date or date-time object, or YYYY-MM-DD string: the first day
+#'  from which to get an event count.
+#' @param to A date or date-time object, or YYYY-MM-DD string: the last day
+#'  from which to get an event count.
 #' @return A data frame of daily event counts for each day in the specified
-#'  range of months.
+#'  range.
 #' @examples
-#' # Return daily event counts from 01 Oct 2014 to 31 Jul 2015
+#' # Return daily event counts from 01 Oct 2014 to 17 Jul 2015
 #' events <- get_events("2014-10-01", "2015-07-17")
 #'
 #' # Return daily event counts for all months in date range of parking records
@@ -146,7 +146,8 @@ get_rugby <- function(x) {
 get_events <- function(from, to) {
 
     # Get all year-month combinations in specified range
-    year_month <- seq(as.Date(from), as.Date(to), by = "months")
+    year_month <- seq(as.Date(from), as.Date(to), by = "months") %>%
+        substr(., 0, nchar(.)+2)
 
     # Create web addresses for past events pages
     addresses <- paste0("http://www.bath.co.uk/events/", year_month)
@@ -196,12 +197,21 @@ get_events <- function(from, to) {
                     length() - 1
             }
         }
-        # Add this vector to our list of year-month event counts
+
+        # Add this list to our list of year-month event counts
         event_count[[i]] <- daily_event_count
     }
 
+    # Trim the last month... (events only up to "to" date)
+    lec <- length(event_count)
+    event_count[[lec]] <- head(event_count[[lec]], lubridate::day(to))
+
+    # Then the first month... (events only from "from" date)
+    event_count[[1]] <- tail(event_count[[1]], -lubridate::day(from) + 1)
+
+
     # Get all dates in the months we are looking at
-    all_dates <- seq(as.Date("2014-10-01"), as.Date("2016-12-31"), by = "days")
+    all_dates <- seq(as.Date(from), as.Date(to), by = "days")
 
     # Make a data frame with each date and the number of events that day:
     # "unlist" does exactly as it says on the tin, it just stretches a list out

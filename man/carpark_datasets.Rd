@@ -2,6 +2,7 @@
 % Please edit documentation in R/data.R
 \docType{data}
 \name{carpark_datasets}
+\alias{carpark_datasets}
 \alias{Avon_Street_CP}
 \alias{Charlotte_Street_CP}
 \alias{Lansdown_P+R}
@@ -10,7 +11,6 @@
 \alias{Podium_CP}
 \alias{SouthGate_General_CP}
 \alias{SouthGate_Rail_CP}
-\alias{carpark_datasets}
 \title{Individual car park datasets}
 \format{Data frames with between 99225 and 201880 records of 7 variables.}
 \usage{
@@ -34,4 +34,3 @@ SouthGate_Rail_CP
 All records from individual car parks from October 2014 to December 2016.
 }
 \keyword{datasets}
-

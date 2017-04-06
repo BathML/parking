@@ -24,4 +24,3 @@ Daily weather records for Bath from
  for 2014-10-17 to 2016-12-27
 }
 \keyword{datasets}
-

@@ -2,6 +2,7 @@
 % Please edit documentation in R/data.R
 \docType{data}
 \name{month_datasets}
+\alias{month_datasets}
 \alias{2014_10}
 \alias{2014_11}
 \alias{2014_12}
@@ -29,7 +30,6 @@
 \alias{2016_10}
 \alias{2016_11}
 \alias{2016_12}
-\alias{month_datasets}
 \title{Individual month datasets}
 \format{Data frames with approximately 50000 records of 7 variables.}
 \usage{
@@ -93,4 +93,3 @@ Records for all car parks from individual months from October 2014 to
  \code{2014_10}).
 }
 \keyword{datasets}
-

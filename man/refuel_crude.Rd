@@ -27,4 +27,3 @@ raw_data <- refuel_crude(raw_data)
   \code{\link{refine}}
 }
 }
-

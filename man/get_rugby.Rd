@@ -26,4 +26,3 @@ seasons <- c(2015, 2016)
 rugby <- get_rugby(seasons)
 
 }
-

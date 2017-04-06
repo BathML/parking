@@ -28,4 +28,3 @@ str(raw_data)
   \code{\link{refine}}
 }
 }
-
