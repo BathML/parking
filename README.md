@@ -27,7 +27,7 @@ Data is open-source and is provided by Bath and North East Somerset Council in c
 
 * Daily weather summary from 2014-10-17 to 2016-12-27
 * Dates, kick-off times and outcomes for Bath Rugby home matches from 2014-09 to 2016-12
-* Daily count of events advertised at [www.bath.co.uk/events] from 2014-10 to 2016-12
+* Daily count of events advertised at ()[www.bath.co.uk/events] from 2014-10 to 2016-12
 
 #### Functions:
 
