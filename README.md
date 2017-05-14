@@ -1,5 +1,7 @@
 # **BANEScarparking**
 
+![version](https://img.shields.io/badge/Version-0.1.3-brightgreen.svg)
+
 Datasets of parking records from 8 car parks located in Bath, United Kingdom; datasets of potentially relevant information for predicting car park occupancy; and functions for obtaining and working with these datasets.
 
 Data is open-source and is provided by Bath and North East Somerset Council in collaboration with Bath: Hacked.
