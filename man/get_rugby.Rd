@@ -16,9 +16,10 @@ A data frame of kick-off date-times and match outcomes.
 Web scraping function to gather dates and times of Bath Rugby matches, and
  whether or not Bath won, from the
  \href{http://www.bathrugby.com/fixtures-results/results-tables/results-match-reports/}{Bath Rugby website}.\cr\cr
- \emph{Note: this function's code is heavily commented so that if you want
+ \emph{Note: This function's code is heavily commented so that if you want
   to, you can use it as a tutorial/guide for writing similar functions of
-  your own! To see the code, use} \code{View(get_rugby)}.
+  your own! You can view the commented code on the GitHub repo
+  \href{https://github.com/owenjonesuob/BANEScarparking/blob/master/R/web_scraping.R}{here}}.
 }
 \examples{
 # Return matches from 2014/15, 2015/16 seasons

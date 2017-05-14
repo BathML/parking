@@ -21,10 +21,11 @@ A data frame of daily event counts for each day in the specified
 Web scraping function to retrieve the number of events advertised at
  \url{http://www.bath.co.uk/events} for each day in a specified range of
  months.\cr\cr
- \emph{Note: you can use} \code{View(get_events)} \emph{to see the code for
-  this function, and in particular the comments which explain the process
-  followed. See \code{\link{get_rugby}} for a similar function with more
-  detailed commentary!}
+ \emph{Note: Have a look at this package's GitHub repo - in particular,
+  \href{https://github.com/owenjonesuob/BANEScarparking/blob/master/R/web_scraping.R}{here}
+  - to see the code for this function, along with comments which
+  explain the process followed. See \code{\link{get_rugby}} for a similar
+  function with more detailed commentary!}
 }
 \examples{
 # Return daily event counts from 01 Oct 2014 to 17 Jul 2015
