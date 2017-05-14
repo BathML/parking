@@ -1,6 +1,7 @@
 # **BANEScarparking**
 
-![version](https://img.shields.io/badge/Version-0.1.3-brightgreen.svg)
+[![version](https://img.shields.io/badge/version-0.1.3-brightgreen.svg)](https://github.com/owenjonesuob/BANEScarparking)
+[![downloads](https://img.shields.io/github/downloads/atom/atom/latest/total.svg)](https://github.com/owenjonesuob/BANEScarparking)
 
 Datasets of parking records from 8 car parks located in Bath, United Kingdom; datasets of potentially relevant information for predicting car park occupancy; and functions for obtaining and working with these datasets.
 
