@@ -238,7 +238,7 @@ get_events <- function(from, to) {
 
 get_events_detail <- function(from, to) {
   # Get all year-month combinations in specified range
-  year_month_day <- seq(as.Date(from), as.Date(to), by = "days") %>%
+  year_month_day_seq <- seq(as.Date(from), as.Date(to), by = "days") %>%
     substr(., 0, nchar(.)+6)
   
   # Create web addresses for past event pages
@@ -315,7 +315,7 @@ get_events_detail <- function(from, to) {
       
         
       # Make a Dataframe from the populated vectors
-      new_events <- data.frame(year_month_day[ymd],time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
+      new_events <- data.frame(year_month_day_seq[ymd],time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
       # Combine the event details collect so far with the new event details parsed for the current day and timeslot
       events <- rbind(events, new_events )
       
