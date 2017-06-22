@@ -303,7 +303,7 @@ get_events_detail <- function(from, to) {
   
       #Loop through each event node
       for (j in 1:length(event_detail_nodes)){
-        #Add 
+        #Add parsed event
         event_name[j] <- html_nodes(event_detail_nodes[j], xpath=".//a[@class='url']") %>% html_text(trim=TRUE)
         event_location_name[j] <- html_node(event_detail_nodes[j], xpath=".//div[@class='tribe-events-venue-details']//a/text()") %>% html_text_na()
         event_postcode[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-postal-code')]") %>% html_text_na()
