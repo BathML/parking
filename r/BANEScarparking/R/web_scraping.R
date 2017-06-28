@@ -238,15 +238,15 @@ get_events <- function(from, to) {
 
 get_events_detail <- function(from, to) {
   # Get all year-month combinations in specified range
-  year_month_day <- seq(as.Date(from), as.Date(to), by = "days") %>%
+  year_month_day_seq <- seq(as.Date(from), as.Date(to), by = "days") %>%
     substr(., 0, nchar(.)+6)
   
   # Create web addresses for past event pages
-  addresses <- paste0("http://www.bath.co.uk/events/", year_month_day)
+  addresses <- paste0("http://www.bath.co.uk/events/", year_month_day_seq)
   
   # Initialize event-count vector
   event_count <- vector("list", length(addresses))
-  names(event_count) <- year_month_day
+  names(event_count) <- year_month_day_seq
   
   
   #Initialise 0 length vectors to create the initial DF object (Not sure if this is the best approach to append to a df type pattern)
@@ -258,10 +258,10 @@ get_events_detail <- function(from, to) {
   event_locality <- vector(mode="character", 0)
   event_start <- vector(mode="character", 0)
   event_end <- vector(mode="character", 0)
-  timeslot <- rep(time_slot,0)
+  time_slot <- vector(mode="character",0)
   
   #Create the initial df (Not sure if this is the best approach to append to a df type pattern)
-  events <- data.frame(year_month_day, timeslot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
+  events <- data.frame(year_month_day, time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
   
   # For each year-month-day loop through the URLs:
   for (ymd in 1:length(addresses)) {
@@ -272,11 +272,11 @@ get_events_detail <- function(from, to) {
     
     #Find the Timeslot HTML nodes
     event_time_slot <- webpage %>% html_nodes(".tribe-events-day-time-slot")
-  
+    
     #Loop through the timeslots
     for (i in 2:length(event_time_slot)){
       #Get the current timeslot header text
-      time_slot <- event_time_slot[i] %>% html_node(xpath=".//h5") %>% html_text()
+      time_slot_val <- event_time_slot[i] %>% html_node(xpath=".//h5") %>% html_text()
       #From the current timeslot, get the event detail html node
       event_detail_nodes <- event_time_slot[i] %>% html_nodes(xpath=".//div[contains(@class, 'type-tribe_events')]")
       
@@ -288,7 +288,7 @@ get_events_detail <- function(from, to) {
       event_locality <- vector(mode="character", length=length(event_detail_nodes))
       event_start <- vector(mode="character", length=length(event_detail_nodes))
       event_end <- vector(mode="character", length=length(event_detail_nodes))
-      timeslot <- rep(time_slot,length=length(event_detail_nodes))
+      time_slot <- rep(time_slot_val,length=length(event_detail_nodes))
       
       
       #Revised html text function to retun NA if no HTML text value can be found
@@ -300,10 +300,10 @@ get_events_detail <- function(from, to) {
         return(txt)
         
       }
-  
+      
       #Loop through each event node
       for (j in 1:length(event_detail_nodes)){
-        #Add 
+        #Add parsed event
         event_name[j] <- html_nodes(event_detail_nodes[j], xpath=".//a[@class='url']") %>% html_text(trim=TRUE)
         event_location_name[j] <- html_node(event_detail_nodes[j], xpath=".//div[@class='tribe-events-venue-details']//a/text()") %>% html_text_na()
         event_postcode[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-postal-code')]") %>% html_text_na()
@@ -313,15 +313,16 @@ get_events_detail <- function(from, to) {
         event_end[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-event-date-end')]") %>% html_text_na()
       }
       
-        
+      
       # Make a Dataframe from the populated vectors
-      new_events <- data.frame(year_month_day[ymd],timeslot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
+      new_events <- data.frame(year_month_day_seq[ymd],time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
       # Combine the event details collect so far with the new event details parsed for the current day and timeslot
       events <- rbind(events, new_events )
       
-      }
+    }
   }
   # return the dataframe
   events
 }
+
 
