@@ -235,6 +235,123 @@ get_events <- function(from, to) {
 
 
 
+#' Scrape the details of advertised events in Bath for each day
+#'
+#' Web scraping function to retrieve the detail for events advertised at
+#'  \url{http://www.bath.co.uk/events} for each day in a specified range of
+#'  dates.\cr\cr
+#'  \emph{(Author: Ryan Kenning.)}
+#' @param from A date or date-time object, or string, of the first
+#'  date for which to find events.
+#' @param to A date or date-time object, or string, of the last
+#'  date for which to find events.
+#' @return A data frame of daily event details for each day in the specified
+#'  range of months.
+#' @examples
+#' # Return daily event details from 01 Oct 2014 to 31 Jul 2015
+#' events <- get_events("2014-10-01", "2015-07-17")
+#'
+#' # Return daily event details for all months in date range of parking records
+#' #' raw_data <- get_all_crude()
+#' df <- refine(raw_data)
+#' 
+#' events <- get_events_detail(min(df$LastUpdate), max(df$LastUpdate))
+#' @export
+
+get_events_detail <- function(from, to) {
+    
+    # Get all year-month combinations in specified range
+    year_month_day_seq <- seq(as.Date(from), as.Date(to), by = "days") %>%
+        substr(., 0, nchar(.)+6)
+    
+    # Create web addresses for past event pages
+    addresses <- paste0("http://www.bath.co.uk/events/", year_month_day_seq)
+    
+    # Initialize event-count vector
+    event_count <- vector("list", length(addresses))
+    names(event_count) <- year_month_day_seq
+    
+    
+    #Initialise 0 length vectors to create the initial DF object (Not sure if this is the best approach to append to a df type pattern)
+    year_month_day <- vector(mode="character",0)
+    event_name <- vector(mode="character", 0)
+    event_location_name <- vector(mode="character", 0)
+    event_postcode <- vector(mode="character", 0)
+    event_street <- vector(mode="character", 0)
+    event_locality <- vector(mode="character", 0)
+    event_start <- vector(mode="character", 0)
+    event_end <- vector(mode="character", 0)
+    time_slot <- vector(mode="character",0)
+    
+    # Create the initial df (Not sure if this is the best approach to append to a df type pattern)
+    events <- data.frame(year_month_day, time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
+    
+    # For each year-month-day loop through the URLs:
+    for (ymd in 1:length(addresses)) {
+        # Connect to address and return HTLM page from URL
+        url <- addresses[ymd]
+        # Parse the HTML page
+        webpage <- read_html(url)
+        
+        # Find the Timeslot HTML nodes
+        event_time_slot <- webpage %>% html_nodes(".tribe-events-day-time-slot")
+        
+        #Loop through the timeslots
+        for (i in 2:length(event_time_slot)){
+            # Get the current timeslot header text
+            time_slot_val <- event_time_slot[i] %>% html_node(xpath=".//h5") %>% html_text()
+            # From the current timeslot, get the event detail html node
+            event_detail_nodes <- event_time_slot[i] %>% html_nodes(xpath=".//div[contains(@class, 'type-tribe_events')]")
+            
+            # Initialise the value vectors with the length based on number of events found
+            event_name <- vector(mode="character", length=length(event_detail_nodes))
+            event_location_name <- vector(mode="character", length=length(event_detail_nodes))
+            event_postcode <- vector(mode="character", length=length(event_detail_nodes))
+            event_street <- vector(mode="character", length=length(event_detail_nodes))
+            event_locality <- vector(mode="character", length=length(event_detail_nodes))
+            event_start <- vector(mode="character", length=length(event_detail_nodes))
+            event_end <- vector(mode="character", length=length(event_detail_nodes))
+            time_slot <- rep(time_slot_val,length=length(event_detail_nodes))
+            
+            
+            # Revised html text function to retun NA if no HTML text value can be found
+            html_text_na <- function(x, ...) {
+                
+                txt <- try(html_text(x, ...))
+                if (inherits(txt, "try-error") |
+                    (length(txt)==0)) { return(NA) }
+                return(txt)
+                
+            }
+            
+            #Loop through each event node
+            for (j in 1:length(event_detail_nodes)){
+                #Add parsed event
+                event_name[j] <- html_nodes(event_detail_nodes[j], xpath=".//a[@class='url']") %>% html_text(trim=TRUE)
+                event_location_name[j] <- html_node(event_detail_nodes[j], xpath=".//div[@class='tribe-events-venue-details']//a/text()") %>% html_text_na()
+                event_postcode[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-postal-code')]") %>% html_text_na()
+                event_street[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-street-address')]") %>% html_text_na()
+                event_locality[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-locality')]") %>% html_text_na()
+                event_start[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-event-date-start')]") %>% html_text_na()
+                event_end[j] <- html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-event-date-end')]") %>% html_text_na()
+            }
+            
+            
+            # Make a Dataframe from the populated vectors
+            new_events <- data.frame(year_month_day_seq[ymd],time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
+            # Combine the event details collect so far with the new event details parsed for the current day and timeslot
+            events <- rbind(events, new_events )
+            
+        }
+    }
+    # Return the dataframe
+    events
+}
+
+
+
+
+
 #' Scrape daily weather records for Bath
 #' 
 #' This function scrapes the \href{https://www.wunderground.com/}{Wunderground}
