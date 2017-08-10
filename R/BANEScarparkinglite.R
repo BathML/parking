@@ -1,4 +1,4 @@
-#' Functons for obtaining and working with car parking data from Bath and North East Somerset
+#' Functions for obtaining and working with car parking data from Bath and North East Somerset
 #'
 #' Contains functions for importing and working with the BANES car parking
 #'  records and other related datasets. For the full version of the package, including
