@@ -1,6 +1,6 @@
 # **BANEScarparkinglite: like BANEScarparking, but smaller!**
 
-This is a stripped-down version of the [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) package. It contains functions for obtaining and working with the BANES car parking records from the [Bath: Hacked API](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc), as well as some functions for getting other related datasets via web-scraping.
+This is a stripped-down version of the [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) package. It contains functions for obtaining and working with the BANES car parking records from the [Bath: Hacked API](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc), as well as some functions for getting other related datasets via web-scraping. Feel free to contribute anything you think might be useful!
 
 ---
 
@@ -9,7 +9,9 @@ This is a stripped-down version of the [BANEScarparking](https://github.com/owen
 * `get_all_crude` (and `get_range_crude`) for retrieving the full dataset (or a subset) of records from Bath: Hacked datastore
 * `refine` for processing the raw records
 * `refuel` and `refuel_crude` for updating existing data frames with recent records
-* `get_rugby`, `get_events` and `get_daily_weather` for obtaining information through web-scraping.
+* `get_rugby`, `get_events` (and `get_events_detail`) and `get_daily_weather` for obtaining information through web-scraping.
+
+The full [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) package contains all of these functions, along with parking, events and rugby data up to the end of 2016 (stored as R datasets).
 
 ---
 
