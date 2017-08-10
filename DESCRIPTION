@@ -29,5 +29,6 @@ Imports:
     tibble,
     utils,
     XML,
-    xml2
+    xml2,
+    zoo
 RoxygenNote: 6.0.1
