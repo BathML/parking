@@ -1,13 +1,11 @@
-#' Car parking data for Bath and North East Somerset
+#' Functons for obtaining and working with car parking data from Bath and North East Somerset
 #'
-#' Contains datasets of records from 8 car parks located in Bath, United
-#'  Kingdom, and some functions for working with these records. Data is
-#'  open-source and is provided by Bath and North East Somerset Council in
-#'  collaboration with Bath: Hacked. See \href{http://bit.ly/2i3Y1uF}{here}
-#'  for the original dataset.
+#' Contains functions for importing and working with the BANES car parking
+#'  records and other related datasets. For the full version of the package, including
+#'  all datasets, see the repo at https://github.com/owenjonesuob/BANEScarparking.
 #'
 #' @docType package
-#' @name BANEScarparking-package
+#' @name BANEScarparkinglite-package
 #' @author Owen Jones (\email{olj23@@bath.ac.uk})
 
 NULL
