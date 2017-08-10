@@ -22,9 +22,9 @@ The full package additionally contains datasets of parking records, events, rugb
 
 A great way to improve your programming skills is to read code other people have shared!
 
-When working on code collaboratively, it is very helpful to use a consistent coding style. Most of the code in this repository follows [Hadley Wickhan's R style guide](http://adv-r.had.co.nz/Style.html).
+When working on code collaboratively, it is very helpful to use a consistent coding style. Most of the code in this repository follows [Hadley Wickham's R style guide](http://adv-r.had.co.nz/Style.html).
 
-Comments are very helpful to other people reading your code and learning from what you've written. Try to use descriptive comments explaining what the following line or block of code does. Make comments as long as they need to be to adequately describe what's going on!
+Comments are very helpful to other people who might be reading your code and learning from what you've written. Try to use descriptive comments explaining what the following line or block of code does. Make comments as long as they need to be to adequately describe what's going on!
 
 Good commentary example (from `h2o.R`):
 
