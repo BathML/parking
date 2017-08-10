@@ -24,8 +24,10 @@ Imports:
     Rcpp,
     RCurl,
     readr,
+    rvest,
     stringr,
     tibble,
     utils,
-    XML
+    XML,
+    xml2
 RoxygenNote: 6.0.1
