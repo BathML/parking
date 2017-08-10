@@ -17,7 +17,7 @@ This is a stripped-down version of the [BANEScarparking](https://github.com/owen
 
 To install the package just run this command in the R console:
 ```
-devtools::install_github("owenjonesuob/BANEScarparkinglite")
+devtools::install_github("BATH-ML/parking", subdir = "r/BANEScarparkinglite")
 ```
 You'll need the `devtools` package to do this - you can install it with `install.packages("devtools")`
 
