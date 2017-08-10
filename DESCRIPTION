@@ -1,15 +1,13 @@
-Package: BANEScarparking
+Package: BANEScarparkinglite
 Type: Package
 Title: Car Parking Data for Bath and North East Somerset
-Version: 0.1.3
+Version: 0.1.0
 Authors@R: person("Owen", "Jones", email = "olj23@bath.ac.uk", role = c("aut", "cre"))
-Description: Contains datasets of records from 8 car parks located in Bath,
-    United Kingdom, and functions for working with these records.
-    Data is open-source and is provided by Bath and North East
-    Somerset Council in collaboration with Bath: Hacked.
-License: GPL-3
-LazyData: TRUE
-URL: https://github.com/owenjonesuob/BANEScarparking
+Description: Contains functions for importing and working with the BANES car parking
+  records and other related datasets. For the full version of the package, including
+  all datasets, see the repo at https://github.com/owenjonesuob/BANEScarparking.
+License: MIT
+URL: https://github.com/owenjonesuob/BANEScarparkinglite
 Imports:
     assertthat,
     curl,
