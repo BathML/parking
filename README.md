@@ -2,7 +2,7 @@
 
 ### Learn data science and machine learning by working on a project!
 
-We are using the [BANES Live Car Park Occupancy](https://data.bathhacked.org/Transport/BANES-Live-Car-Park-Occupancy/u3w2-9yme/data) dataset along with various machine learning techniques to try to predict the future occupancy of Bath's eight car parks.
+We are using the [BANES Historic Car Park Occupancy](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc) dataset along with various machine learning techniques to try to predict the future occupancy of Bath's eight car parks.
 
 The project has been running since 9th November 2016, and we hold regular "Project Time" [meetups](https://www.meetup.com/Bath-Machine-Learning-Meetup/) where we share what we've been working on and try things out together.
 
