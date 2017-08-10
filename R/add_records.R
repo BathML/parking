@@ -89,7 +89,7 @@ refuel_crude <- function(x) {
 #' @param max_prop,first_upload See \code{\link{refine}}.
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' DF <- refuel(DF)
+#' df <- refuel(df)
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records

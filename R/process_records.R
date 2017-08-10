@@ -40,8 +40,8 @@
 #' dim(some_records)
 #' ## 1000   16
 #'
-#' DF <- refine(raw_data)
-#' dim(DF)
+#' df <- refine(raw_data)
+#' dim(df)
 #' ## 813   7
 #' @export
 
