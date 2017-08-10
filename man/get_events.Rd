@@ -33,7 +33,7 @@ events <- get_events("2014-10-01", "2015-07-17")
 
 # Return daily event counts for all months in date range of parking records
 raw_data <- get_all_crude()
-DF <- refine(raw_data)
+df <- refine(raw_data)
 
-events <- get_events(min(DF$LastUpdate), max(DF$LastUpdate))
+events <- get_events(min(df$LastUpdate), max(df$LastUpdate))
 }

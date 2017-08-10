@@ -20,7 +20,7 @@ Update data frame of records already processed with \code{\link{refine}} with
  any records that have since been added to the Bath: Hacked datastore.
 }
 \examples{
-DF <- refuel(DF)
+df <- refuel(df)
 }
 \seealso{
 \itemize{

@@ -53,7 +53,7 @@ some_records <- raw_data[1:1000, ]
 dim(some_records)
 ## 1000   16
 
-DF <- refine(raw_data)
-dim(DF)
+df <- refine(raw_data)
+dim(df)
 ## 813   7
 }
