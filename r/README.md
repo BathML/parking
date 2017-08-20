@@ -12,9 +12,9 @@ You can install `BANEScarparkinglite` as follows:
 
 * First, if you don't have `devtools` installed, run `install.packages("devtools")`
 * Then run `devtools::install_github("Bath-ML/parking", subdir = "r/BANEScarparkinglite")`
-* Load the package as you would 
+* Load the package as usual: `library(BANEScarparkinglite)`
 
-The full package additionally contains datasets of parking records, events, rugby and weather up to the end of 2016. If you discover a major discrepancy between the two versions of the packege, please let Owen know (olj23@bath.ac.uk, @owenjonesuob)!
+The full package additionally contains datasets of parking records, events, rugby and weather up to the end of 2016. If you discover a major discrepancy between the two versions of the package, please let Owen know (olj23@bath.ac.uk, @owenjonesuob)!
 
 ---
 
