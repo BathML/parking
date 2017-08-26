@@ -24,6 +24,6 @@
                            "understand recursion")
 
     i <- sample(1:14, 1)
-    packageStartupMessage(sprintf(paste0("\nWelcome to the BANEScarparkinglite ",
+    packageStartupMessage(sprintf(paste0("\nWelcome to the BANEScarparking ",
                                          "package!\n\n##  %s\n"), messages[i]))
 }

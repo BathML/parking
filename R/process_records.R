@@ -69,13 +69,16 @@ refine <- function(x, max_prop = 1.1, first_upload = FALSE) {
         #        DateUploaded = as.POSIXct(DateUploaded, tz = "UTC",
         #                                  format = "%d/%m/%Y %I:%M:%S %p")) %>%
         # Remove duplicate records:
-        BANEScarparking:::refine.deduplicate(first_upload = first_upload)
+        refine.deduplicate(first_upload = first_upload)
 }
 
 
 #' Remove duplicate records (internal method)
 #'
 #' (Internal method)
+#' 
+#' @param x Data frame containing records.
+#' @param first_upload If TRUE, ensures record with oldest DateUploaded is kept.
 
 refine.deduplicate <- function(x, first_upload) {
     dplyr::group_by(x, Name, LastUpdate) %>%
