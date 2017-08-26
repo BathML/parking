@@ -120,10 +120,10 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
                                        "$$app_token" = token))
     new_records <- httr::content(new_list,
                                  "parsed", col_types = "iTcicTciiiiciiic")
-    refined <- BANEScarparking::refine(new_records, max_prop = max_prop,
+    refined <- refine(new_records, max_prop = max_prop,
                                        first_upload = first_upload)
-    added <- BANEScarparking:::refine.deduplicate(rbind(x, refined),
-                                                 first_upload = first_upload)
+    added <- refine.deduplicate(rbind(x, refined),
+                                first_upload = first_upload)
     n <- nrow(added) - nrow(x)
     message(sprintf(paste0("Refined and added %d new records from Bath: Hacked",
                            " datastore!\n  Records added: %s to %s"),
