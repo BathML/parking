@@ -31,8 +31,8 @@ and you should be good to go!
 
 ---
 
-**Version:** 0.1.0
+**Version:** 0.1.0 | Status: [![Build Status](https://travis-ci.org/Bath-ML/parking.svg?branch=master)]
 
-Development version [here](https://github.com/owenjonesuob/BANEScarparkinglite)  |  ![](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)
+Development version [here](https://github.com/owenjonesuob/BANEScarparkinglite)  |  Status: [![Build Status](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)]
 
 **Contact:** Owen Jones (olj23@bath.ac.uk)
