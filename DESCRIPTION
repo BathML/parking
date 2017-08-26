@@ -7,7 +7,7 @@ Authors@R: c(person("Owen", "Jones", email = "olj23@bath.ac.uk", role = c("aut",
 Description: Contains functions for importing and working with the BANES car parking
   records and other related datasets. For the full version of the package, including
   all datasets, see the repo at https://github.com/owenjonesuob/BANEScarparking.
-License: MIT
+License: MIT + file LICENSE
 URL: https://github.com/owenjonesuob/BANEScarparkinglite
 Imports:
     assertthat,
