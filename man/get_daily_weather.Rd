@@ -30,8 +30,8 @@ The website can only display up to 398 records in one go; asking for
 weather <- get_daily_weather("2014-10-01", "2015-07-17")
 
 
-# Return daily event counts for all days in date range of parking records: we
-# have to do it in chunks because there are too many to collect in one go
+## Return daily event counts for all days in date range of parking records:
+## we have to do it in chunks because there are too many to collect in one go
 
 # library(lubridate)
 

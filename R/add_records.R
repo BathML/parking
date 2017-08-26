@@ -41,8 +41,8 @@ get_all_crude <- function() {
 #'  \code{\link{get_all_crude}}).
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' raw_data <- get_all_crude()
-#' raw_data <- refuel_crude(raw_data)
+#' # raw_data <- get_all_crude()
+#' # raw_data <- refuel_crude(raw_data)
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records
@@ -90,11 +90,11 @@ refuel_crude <- function(x) {
 #' @param max_prop,first_upload See \code{\link{refine}}.
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' raw_data <- get_all_crude()
-#' df <- refine(get_all_crude)
+#' # raw_data <- get_all_crude()
+#' # df <- refine(get_all_crude)
 #' 
-#' # Add most recent records
-#' df <- refuel(df)
+#' ## Add most recent records
+#' # df <- refuel(df)
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records
