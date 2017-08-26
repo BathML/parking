@@ -6,6 +6,11 @@
 \usage{
 refine.deduplicate(x, first_upload)
 }
+\arguments{
+\item{x}{Data frame containing records.}
+
+\item{first_upload}{If TRUE, ensures record with oldest DateUploaded is kept.}
+}
 \description{
 (Internal method)
 }

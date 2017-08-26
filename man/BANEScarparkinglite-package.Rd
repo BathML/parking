@@ -3,7 +3,7 @@
 \docType{package}
 \name{BANEScarparkinglite-package}
 \alias{BANEScarparkinglite-package}
-\title{Functons for obtaining and working with car parking data from Bath and North East Somerset}
+\title{Functions for obtaining and working with car parking data from Bath and North East Somerset}
 \description{
 Contains functions for importing and working with the BANES car parking
  records and other related datasets. For the full version of the package, including

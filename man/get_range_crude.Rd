@@ -46,9 +46,6 @@ raw_data <- get_range_crude(from = ymd_hms("2017-01-01 14:30:00"),
 raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"),
                             abbrs = c("l", "n", "od"))
 
-
-# Retrieve all records (identical to get_all_crude)
-raw_data <- get_range_crude()
 }
 \seealso{
 \code{\link{get_all_crude}}
