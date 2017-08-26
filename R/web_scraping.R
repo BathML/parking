@@ -258,7 +258,7 @@ get_events <- function(from, to) {
 #'  range of months.
 #' @examples
 #' # Return daily event details from 01 Oct 2014 to 08 Oct 2014
-#' events <- get_events_detail("2014-10-01", "2015-10-08")
+#' events <- get_events_detail("2014-10-01", "2014-10-08")
 #'
 #' @export
 
