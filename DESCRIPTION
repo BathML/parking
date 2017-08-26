@@ -1,8 +1,9 @@
 Package: BANEScarparkinglite
 Type: Package
-Title: Car Parking Data for Bath and North East Somerset
+Title: Working with Car Parking Data for Bath and North East Somerset
 Version: 0.1.0
-Authors@R: person("Owen", "Jones", email = "olj23@bath.ac.uk", role = c("aut", "cre"))
+Authors@R: c(person("Owen", "Jones", email = "olj23@bath.ac.uk", role = c("aut", "cre")),
+    person("Ryan", "Kenning", role = c("aut", "ctb")))
 Description: Contains functions for importing and working with the BANES car parking
   records and other related datasets. For the full version of the package, including
   all datasets, see the repo at https://github.com/owenjonesuob/BANEScarparking.
