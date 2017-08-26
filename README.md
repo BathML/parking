@@ -1,5 +1,7 @@
 # **BANEScarparkinglite: like BANEScarparking, but smaller!**
 
+![](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)
+
 This is a stripped-down version of the [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) package. It contains functions for obtaining and working with the BANES car parking records from the [Bath: Hacked API](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc), as well as some functions for getting other related datasets via web-scraping. Feel free to contribute anything you think might be useful!
 
 ---
