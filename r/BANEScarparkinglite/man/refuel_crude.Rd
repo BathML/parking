@@ -18,7 +18,8 @@ Update  data frame of raw records with any records that have since been added
  to the Bath: Hacked datastore.
 }
 \examples{
-raw_data <- refuel_crude(raw_data)
+# raw_data <- get_all_crude()
+# raw_data <- refuel_crude(raw_data)
 }
 \seealso{
 \itemize{

@@ -33,4 +33,6 @@ and you should be good to go!
 
 **Version:** 0.1.0
 
+Development version [here](https://github.com/owenjonesuob/BANEScarparkinglite)  |  Status: [![Build Status](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)](https://travis-ci.org/owenjonesuob/BANEScarparkinglite)
+
 **Contact:** Owen Jones (olj23@bath.ac.uk)

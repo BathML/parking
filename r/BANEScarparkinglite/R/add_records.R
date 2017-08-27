@@ -41,7 +41,8 @@ get_all_crude <- function() {
 #'  \code{\link{get_all_crude}}).
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' raw_data <- refuel_crude(raw_data)
+#' # raw_data <- get_all_crude()
+#' # raw_data <- refuel_crude(raw_data)
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records
@@ -89,7 +90,11 @@ refuel_crude <- function(x) {
 #' @param max_prop,first_upload See \code{\link{refine}}.
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' df <- refuel(df)
+#' # raw_data <- get_all_crude()
+#' # df <- refine(get_all_crude)
+#' 
+#' ## Add most recent records
+#' # df <- refuel(df)
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records
@@ -115,10 +120,10 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
                                        "$$app_token" = token))
     new_records <- httr::content(new_list,
                                  "parsed", col_types = "iTcicTciiiiciiic")
-    refined <- BANEScarparking::refine(new_records, max_prop = max_prop,
+    refined <- refine(new_records, max_prop = max_prop,
                                        first_upload = first_upload)
-    added <- BANEScarparking:::refine.deduplicate(rbind(x, refined),
-                                                 first_upload = first_upload)
+    added <- refine.deduplicate(rbind(x, refined),
+                                first_upload = first_upload)
     n <- nrow(added) - nrow(x)
     message(sprintf(paste0("Refined and added %d new records from Bath: Hacked",
                            " datastore!\n  Records added: %s to %s"),
@@ -162,9 +167,6 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
 #' raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"),
 #'                             abbrs = c("l", "n", "od"))
 #'
-#'
-#' # Retrieve all records (identical to get_all_crude)
-#' raw_data <- get_range_crude()
 #' @seealso \code{\link{get_all_crude}}
 #' @export
 

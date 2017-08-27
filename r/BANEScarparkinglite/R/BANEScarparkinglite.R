@@ -7,5 +7,13 @@
 #' @docType package
 #' @name BANEScarparkinglite-package
 #' @author Owen Jones (\email{olj23@@bath.ac.uk})
-
 NULL
+
+## Quiets concerns of R CMD check re variables that appear in pipelines
+if(getRversion() >= "2.15.1")  {
+    utils::globalVariables(c(".", "GMT", "month", "year", "day", "Date",
+                             "name", "lastupdate", "dateuploaded", "occupancy",
+                             "capacity", "status", "Name", "Status",
+                             "Occupancy", "Capacity", "Proportion",
+                             "LastUpdate", "DateUploaded"))
+}
