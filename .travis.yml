@@ -1,2 +1,14 @@
+# This is a YAML (YAML Ain't Markup Language) file used to provide settings for
+# the Travis CI build of BANEScarparkinglite 
+
+# Specify the language to use
 language: r
+
+# Tell Travis to cache packages once it installs them, in order to speed up
+# build times
 cache: packages
+ 
+# For an R package, Travis builds and checks the package in a clean environment.
+# Effectively, it runs devtools::build() and devtools::check(). So if the
+# package passes devtools::check() without any errors, warnings or notes then
+# Travis is happy!
