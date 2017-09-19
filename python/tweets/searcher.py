@@ -30,7 +30,7 @@ max_tweets = 1000000000
 tweets_per_query = 100
 
 # Connect to the mLab database
-client = pymongo.MongoClient("mongodb://streamlistener:streamlistener@ds123614.mlab.com:23614/bmlm-parking-tweets")
+client = pymongo.MongoClient("mongodb://shareduser:shareduser@ds123614.mlab.com:23614/bmlm-parking-tweets")
 db = client["bmlm-parking-tweets"]
 
 # If we already have some tweets, get the date of the most recent, and only look for tweets after that
@@ -88,9 +88,9 @@ while tweet_count < max_tweets:
         print("Oh noooooo! " + str(e))
         break
 
-# If we found some new tweets, add them to the mLab database
+# If we found some new tweets, add them to the "shared" collection in mLab database
 if tweet_count > 0:
-    db.tweets.insert_many(tweets_to_add)
+    db.shared.insert_many(tweets_to_add)
 else:
     print("No tweets to add :(")
     

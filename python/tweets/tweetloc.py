@@ -32,7 +32,7 @@ class LocationListener(tweepy.StreamListener):
         super(tweepy.StreamListener, self).__init__()
         
         # Connect to the client and specify the database
-        self.client = pymongo.MongoClient("mongodb://streamlistener:streamlistener@ds123614.mlab.com:23614/bmlm-parking-tweets")
+        self.client = pymongo.MongoClient("mongodb://shareduser:shareduser@ds123614.mlab.com:23614/bmlm-parking-tweets")
         self.db = self.client["bmlm-parking-tweets"]
  
  
