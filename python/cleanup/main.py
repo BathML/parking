@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Sep 13 08:56:23 2017
+# In this file we will do data integration and then, in the future, 
+# apply machine learning algorithms to do some predictions
 
-@author: Tatiana Kim
-"""
 
 import pandas as pd
 import numpy as np
@@ -12,8 +9,9 @@ import transform_records as tr
 import time as tm
 
 
-# import data 
-rawData = pd.read_csv('C:/Users/Tatiana Kim/Dropbox (Iridium Insights)/Local Folder Tatiana/ML/ParkingProject/BANES_Historic_Car_Park_Occupancy.csv') 
+# import BANES car parking data - make sure you have it in the folder where 
+# this python file is stored!
+rawData = pd.read_csv('BANES_Historic_Car_Park_Occupancy.csv') 
 
 # view the first 10 rows of the data
 rawData.head(10)
@@ -32,7 +30,10 @@ OccupancyDF['Time'] = OccupancyDF['LastUpdate'].dt.time
 
 
 ##########################################################################
-#  Read external data:
+# Do some work with external data
+
+# Import rugby, events and weather data - make sure you have it in the folder where 
+# this python file is stored!
 
 RugbyDF = pd.read_csv('Rugby_events.csv') 
 EventsDF = pd.read_csv('Bath_events.csv') 
@@ -99,7 +100,7 @@ Merge2.drop(['Max TemperatureC', 'Min TemperatureC'], axis=1, inplace='True')
 ut.RenameColumn(Merge2, 'count', 'EventsCount')
 ut.RenameColumn(Merge2, 'Events', 'DrivingCond')
 ut.RenameColumn(Merge2, 'Mean TemperatureC', 'MeanTemp')
-#Merge2['Date'] = [d.date() for d in Merge2['Date']]
+
 
 ###########################################################################
 #    Do the final merge:

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-import pandas as pd
 """
 Clean up raw records
 
@@ -42,6 +39,8 @@ Clean up raw records
 #' df.head()
 #' ## 813   7
 """
+
+import pandas as pd
 
 def refine(x, max_prop):
     # Select columns of interest

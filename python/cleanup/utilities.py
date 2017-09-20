@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Sep 13 08:54:32 2017
-
-@author: Tatiana Kim
-"""
+# This python file contains some usefull function (just 1 at the moment)
 
 
-
+# This function renames columns in a dataframe
 def RenameColumn(DF, oldColumnName, newColumnName):
     if oldColumnName not in DF.columns:
         print('The Data Frame does not contain the column name you specified! Returning the original dataset!')
