@@ -35,8 +35,8 @@ db = client["bmlm-parking-tweets"]
 
 # If we already have some tweets, get the date of the most recent, and only look for tweets after that
 try:
-    most_recent = [tweet for tweet in db.tweets.find().sort("id", pymongo.DESCENDING)]
-    since_id = most_recent[0]["id"]
+    most_recent = db.shared.find_one(sort=[("id", pymongo.DESCENDING)])
+    since_id = most_recent["id"]
 except:
     # Otherwise get all tweets that the API allows us to
     since_id = None
@@ -83,15 +83,14 @@ while tweet_count < max_tweets:
         # Set starting point for next block
         max_id = new_tweets[-1].id
         
-    except tweepy.TweepError as e:
+    except tweepy.TweepError:
         # Quit if we hit an error
-        print("Oh noooooo! " + str(e))
+        print("Oh noooooo! The API rejected your auth keys - make sure they're set correctly!")
         break
 
 # If we found some new tweets, add them to the "shared" collection in mLab database
 if tweet_count > 0:
     db.shared.insert_many(tweets_to_add)
+    print ("Downloaded {0} tweets, saved to mLab database".format(tweet_count))
 else:
     print("No tweets to add :(")
-    
-print ("Downloaded {0} tweets, saved to mLab database".format(tweet_count))
