@@ -23,7 +23,7 @@ It's worth getting familiar with the following useful libraries for data wrangli
   * [Pandas](http://pandas.pydata.org/) - library of high-performance, easy-to-use data structures and data analysis tools 
   * [NumPy](http://www.numpy.org/) - a powerful package for scientific computing (e.g. dealing with large data frames)
 
-The ML packages we are currently exploring for predicting the car parking occupancy [scikit learn](http://scikit-learn.org/stable/). If you know how to use it and wouldn't mind helping us - please let us know! 
+The ML library we are currently exploring for predicting the car parking occupancy is [scikit learn](http://scikit-learn.org/stable/). If you know how to use it and wouldn't mind helping us - please let us know! 
 
 
 

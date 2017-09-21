@@ -11,5 +11,5 @@ To do list:
 
 ## Some useful resources
 
-If you are a seasoned R user who is interested in learning Python, then you might find [this resource](https://pandas.pydata.org/pandas-docs/stable/comparison_with_r.html) useful on `Pandas` operators that are equivalent to R's `dlyr`
+If you are a seasoned R user who is interested in learning Python, then you might find [this resource](https://pandas.pydata.org/pandas-docs/stable/comparison_with_r.html) useful on `Pandas` operators that are equivalent to R's `dplyr`
 
