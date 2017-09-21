@@ -25,11 +25,11 @@ class LocationListener(tweepy.StreamListener):
 
     def __init__(self, api):
     
-        # Use the API we have set up
-        self.api = api
-        
         # We use super() to also run the __init__() of the parent class, i.e StreamListener
         super(tweepy.StreamListener, self).__init__()
+    
+        # Use the API we have set up
+        self.api = api
         
         # Connect to the client and specify the database
         self.client = pymongo.MongoClient("mongodb://shareduser:shareduser@ds123614.mlab.com:23614/bmlm-parking-tweets")
@@ -40,8 +40,8 @@ class LocationListener(tweepy.StreamListener):
     def on_data(self, tweet):
     
         # json.loads() translates a json object into a Python dictionary object, which
-        # then gets inserted into the "test" collection in the database
-        self.db.test.insert_one(json.loads(tweet))
+        # then gets inserted into the "overheard" collection in the database
+        self.db.overheard.insert_one(json.loads(tweet))
  
     # If we hit an error, return True (meaning we just carry on as if nothing happened)
     def on_error(self, status):
