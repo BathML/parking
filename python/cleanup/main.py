@@ -11,7 +11,7 @@ import time as tm
 
 # import BANES car parking data - make sure you have it in the folder where 
 # this python file is stored!
-rawData = pd.read_csv('BANES_Historic_Car_Park_Occupancy.csv') 
+rawData = pd.read_csv('../../BANES_Historic_Car_Park_Occupancy.csv') 
 
 # view the first 10 rows of the data
 rawData.head(10)
@@ -35,9 +35,9 @@ OccupancyDF['Time'] = OccupancyDF['LastUpdate'].dt.time
 # Import rugby, events and weather data - make sure you have it in the folder where 
 # this python file is stored!
 
-RugbyDF = pd.read_csv('Rugby_events.csv') 
-EventsDF = pd.read_csv('Bath_events.csv') 
-WeatherDF = pd.read_csv('Weather.csv') 
+RugbyDF = pd.read_csv('../../Rugby_events.csv') 
+EventsDF = pd.read_csv('../../Bath_events.csv') 
+WeatherDF = pd.read_csv('../../Weather.csv') 
 
 # Now select the columns you need in Rugby dataset
 RugbyDF = RugbyDF[['GMT', 'HomeWin'] ]  

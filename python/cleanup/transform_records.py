@@ -72,12 +72,3 @@ def refine(x, max_prop):
     
     return refinedDF
 
-
-#' Remove duplicate records 
-#' 
-#' @param x Data frame containing records.
-#' @param first_upload If TRUE, ensures record with oldest DateUploaded is kept.
-
-
-#def deduplicate(x, first_upload) :
-#    t = x.groupby('Name', 'LastUpdate')
