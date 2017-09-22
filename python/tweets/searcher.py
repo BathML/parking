@@ -55,38 +55,32 @@ print("Downloading max {0} tweets".format(max_tweets))
 while tweet_count < max_tweets:
     
     # Grab a block of tweets
-    try:
-        if (max_id <= 0):
-            if (not since_id):
-                new_tweets = api.search(q=search_query, count=tweets_per_query)
-            else:
-                new_tweets = api.search(q=search_query, count=tweets_per_query,
-                                        since_id=since_id)
+    if (max_id <= 0):
+        if (not since_id):
+            new_tweets = api.search(q=search_query, count=tweets_per_query)
         else:
-            if (not since_id):
-                new_tweets = api.search(q=search_query, count=tweets_per_query,
-                                        max_id=str(max_id - 1))
-            else:
-                new_tweets = api.search(q=search_query, count=tweets_per_query,
-                                        max_id=str(max_id - 1),
-                                        since_id=since_id)
-        if not new_tweets:
-            print("No more tweets found")
-            break
-        
-        # Add this block of tweets to our list
-        tweets_to_add.extend([status._json for status in new_tweets])
-        tweet_count += len(new_tweets)
-        
-        print("Downloaded {0} tweets".format(tweet_count))
-        
-        # Set starting point for next block
-        max_id = new_tweets[-1].id
-        
-    except tweepy.TweepError:
-        # Quit if we hit an error
-        print("Oh noooooo! The API rejected your auth keys - make sure they're set correctly!")
+            new_tweets = api.search(q=search_query, count=tweets_per_query,
+                                    since_id=since_id)
+    else:
+        if (not since_id):
+            new_tweets = api.search(q=search_query, count=tweets_per_query,
+                                    max_id=str(max_id - 1))
+        else:
+            new_tweets = api.search(q=search_query, count=tweets_per_query,
+                                    max_id=str(max_id - 1),
+                                    since_id=since_id)
+    if not new_tweets:
+        print("No more tweets found")
         break
+    
+    # Add this block of tweets to our list
+    tweets_to_add.extend([status._json for status in new_tweets])
+    tweet_count += len(new_tweets)
+    
+    print("Downloaded {0} tweets".format(tweet_count))
+    
+    # Set starting point for next block
+    max_id = new_tweets[-1].id
 
 # If we found some new tweets, add them to the "shared" collection in mLab database
 if tweet_count > 0:
