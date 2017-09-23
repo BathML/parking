@@ -1,0 +1,11 @@
+certifi==2017.7.27.1
+chardet==3.0.4
+cyrusbus==0.1.0
+idna==2.6
+redis==2.10.6
+requests==2.18.4
+retools==0.4.1
+setproctitle==1.1.10
+six==1.11.0
+tornado==4.5.2
+urllib3==1.22
