@@ -1,0 +1,2 @@
+tweepy==3.5.0
+pymongo==3.5.1

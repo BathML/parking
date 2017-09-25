@@ -6,9 +6,9 @@ You can find the following Jupyter Notebooks here
   * `predict-simple.ipynb`   for simple linear model for predicitions for one of the car parks
   * `predict-decision-tree.ipynb`   for using decision trees for predictions
 
-The [BANES Historic Car Park Occupancy](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc) dataset requires considerable cleaning before ML algorithm can be developed for predicitons. 
+The [BANES Historic Car Park Occupancy](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc) dataset requires considerable cleaning before ML algorithms can be developed for predictions. 
 
-On top of that, the occupancy data alone does not provide enough features to create accurate predictions - the only features it has are: date (year, motnh, day, day of the week, time), car park names and occupancy ratios. In order to get more data, we've written web-scraping scrips ([currently only in R](https://github.com/Bath-ML/parking/blob/master/r/BANEScarparkinglite/R/web_scraping.R)) to get Bath Events, Rugby Games and Weather data.
+On top of that, the occupancy data alone does not provide enough features to create accurate predictions - the only features it has are: date (year, month, day, day of the week, time), car park names and occupancy ratios. In order to get more data, we've written web-scraping scripts ([currently only in R](https://github.com/Bath-ML/parking/blob/master/r/BANEScarparkinglite/R/web_scraping.R)) to get Bath Events, Rugby Games and Weather data.
 
 In the **cleanup** folder, you can find some useful python code that 
   * cleans up raw BANES data (`transform-records.py`)
