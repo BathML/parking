@@ -63,7 +63,7 @@ class DataFetcher:
         return {'hourlyData': desired_data}
 
     def __persist_to_mongo(self, payload):
-        print("Persisting to mongo...")  # TODO: make this true
+        print("Persisting to mongo...") # TODO: make this true
         pprint(payload)
 
 
