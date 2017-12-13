@@ -1,0 +1,16 @@
+{
+  "prediction": {
+    "bucket": 2 //Can be 0..10,
+    "probabilities": [ //11 elements
+      10,
+      12,
+      0,
+      (...),
+      34
+    ]
+  },
+  "carparkDetails": {
+    "postCode": "BA11AB",
+    "capacity": 42
+  }
+}
