@@ -1,4 +1,4 @@
 library(testthat)
-library(BANEScarparking)
+library(BANEScarparkinglite)
 
-test_check("BANEScarparking")
+test_check("BANEScarparkinglite")
