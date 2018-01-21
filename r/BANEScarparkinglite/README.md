@@ -42,7 +42,7 @@ and you should be good to go!
 
 Development version [here](https://github.com/owenjonesuob/BANEScarparkinglite)
 
-Status: [![travis-ci.org](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)](https://travis-ci.org/owenjonesuob/BANEScarparkinglite)
-Test coverage: [![codecov.io](https://codecov.io/github/owenjonesuob/BANEScarparkinglite/coverage.svg?branch=master)](https://codecov.io/github/owenjonesuob/BANEScarparkinglite?branch=master)
+[![travis-ci.org](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)](https://travis-ci.org/owenjonesuob/BANEScarparkinglite)
+[![codecov.io](https://codecov.io/github/owenjonesuob/BANEScarparkinglite/coverage.svg?branch=master)](https://codecov.io/github/owenjonesuob/BANEScarparkinglite?branch=master)
 
 **Contact:** Owen Jones (olj23@bath.ac.uk)
