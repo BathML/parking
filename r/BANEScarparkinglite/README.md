@@ -1,6 +1,16 @@
 # **BANEScarparkinglite: like BANEScarparking, but smaller!**
 
-This is a stripped-down version of the [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) package. It contains functions for obtaining and working with the BANES car parking records from the [Bath: Hacked API](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc), as well as some functions for getting other related datasets via web-scraping. Feel free to contribute anything you think might be useful!
+[![travis-ci.org](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)](https://travis-ci.org/owenjonesuob/BANEScarparkinglite)
+[![codecov.io](https://codecov.io/github/owenjonesuob/BANEScarparkinglite/coverage.svg?branch=master)](https://codecov.io/github/owenjonesuob/BANEScarparkinglite?branch=master)
+
+This is a stripped-down version of the [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) package. It contains functions for obtaining and working with the BANES car parking records from the [Bath: Hacked API](https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc), as well as some functions for getting other related datasets via web-scraping.
+
+Feel free to contribute anything you think might be useful!
+
+Contributors so far:
+
+* Owen Jones ([@owenjonesuob](https://github.com/owenjonesuob))
+* Ryan Kenning ([@rkenning](https://github.com/rkenning))
 
 ---
 
@@ -19,7 +29,7 @@ The full [BANEScarparking](https://github.com/owenjonesuob/BANEScarparking) pack
 
 To install the package just run this command in the R console:
 ```
-devtools::install_github("BATH-ML/parking", subdir = "r/BANEScarparkinglite")
+devtools::install_github("Bath-ML/parking", subdir = "r/BANEScarparkinglite")
 ```
 You'll need the `devtools` package to do this - you can install it with `install.packages("devtools")`
 
@@ -31,7 +41,7 @@ and you should be good to go!
 
 ---
 
-**Version:** 0.1.0
+**Version:** 0.1.1 (released 2018-01-20)
 
 Development version [here](https://github.com/owenjonesuob/BANEScarparkinglite)  |  Status: [![Build Status](https://travis-ci.org/owenjonesuob/BANEScarparkinglite.svg?branch=master)](https://travis-ci.org/owenjonesuob/BANEScarparkinglite)
 
