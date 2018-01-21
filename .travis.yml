@@ -12,3 +12,11 @@ cache: packages
 # Effectively, it runs devtools::build() and devtools::check(). So if the
 # package passes devtools::check() without any errors, warnings or notes then
 # Travis is happy!
+
+
+# Check for code test coverage with covr
+r_github_packages:
+  - r-lib/covr
+
+after_success:
+  - Rscript -e 'covr::codecov()'
