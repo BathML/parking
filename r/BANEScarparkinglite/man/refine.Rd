@@ -47,6 +47,7 @@ Uses functions from the \code{dplyr} package to clean up raw records obtained
 }
 }
 \examples{
+\dontrun{
 raw_data <- get_all_crude()
 some_records <- raw_data[1:1000, ]
 
@@ -56,4 +57,5 @@ dim(some_records)
 df <- refine(raw_data)
 dim(df)
 ## 813   7
+}
 }
