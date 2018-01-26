@@ -32,10 +32,9 @@ Car parking records from the specified date range.
 Retrieve raw records uploaded to the datastore within a specified date range and/or from a subset of car parks.
 }
 \examples{
-\dontrun{
-# Records for June 2016
-raw_data <- get_range_crude("2016-06-01 00:00:00", "2016-06-30 23:59:59")
-
+# Records for 1st June 2016
+raw_data <- get_range_crude("2016-06-01 00:00:00", "2016-06-01 23:59:59")
+\donttest{
 # All records from Podium CP since 14:30 on 1st January 2017
 raw_data <- get_range_crude(from = "2017-01-01 14:30:00", abbrs = "p")
 

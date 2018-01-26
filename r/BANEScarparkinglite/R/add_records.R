@@ -8,7 +8,7 @@
 #'
 #' @return The full dataset of car parking records
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' raw_data <- get_all_crude()
 #'
 #' str(raw_data)
@@ -43,7 +43,7 @@ get_all_crude <- function() {
 #'  \code{\link{get_all_crude}}).
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' raw_data <- get_all_crude()
 #' 
 #' # Some time later...
@@ -96,7 +96,7 @@ refuel_crude <- function(x) {
 #' @param max_prop,first_upload See \code{\link{refine}}.
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' raw_data <- get_all_crude()
 #' df <- refine(get_all_crude)
 #' 
@@ -161,10 +161,9 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
 #'   }
 #' @return Car parking records from the specified date range.
 #' @examples
-#' \dontrun{
-#' # Records for June 2016
-#' raw_data <- get_range_crude("2016-06-01 00:00:00", "2016-06-30 23:59:59")
-#'
+#' # Records for 1st June 2016
+#' raw_data <- get_range_crude("2016-06-01 00:00:00", "2016-06-01 23:59:59")
+#' \donttest{
 #' # All records from Podium CP since 14:30 on 1st January 2017
 #' raw_data <- get_range_crude(from = "2017-01-01 14:30:00", abbrs = "p")
 #'

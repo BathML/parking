@@ -11,7 +11,9 @@
 #' @param x A vector of years of seasons to retrieve records from.
 #' @return A data frame of kick-off date-times and match outcomes.
 #' @examples
-#' \dontrun{
+#' # Return matches from 2016/17 season
+#' rugby <- get_rugby(2017)
+#' \donttest{
 #' # Return matches from 2014/15, 2015/16 seasons
 #' seasons <- c(2015, 2016)
 #' rugby <- get_rugby(seasons)
@@ -140,7 +142,9 @@ get_rugby <- function(x) {
 #' @return A data frame of daily event counts for each day in the specified
 #'  range.
 #' @examples
-#' \dontrun{
+#' # Return event count for 01 January 2015
+#' events <- get_events("2015-01-01", "2015-01-01")
+#' \donttest{
 #' # Return daily event counts from 01 Oct 2014 to 17 Jul 2015
 #' events <- get_events("2014-10-01", "2015-07-17")
 #'
@@ -150,6 +154,7 @@ get_rugby <- function(x) {
 #'
 #' events <- get_events(min(df$LastUpdate), max(df$LastUpdate))
 #' }
+#' @seealso \code{\link{get_events_detail}}
 #' @export
 
 get_events <- function(from, to) {
@@ -260,10 +265,13 @@ get_events <- function(from, to) {
 #' @return A data frame of daily event details for each day in the specified
 #'  range of months.
 #' @examples
+#' # Return event details for 01 January 2015
+#' events <- get_events_detail("2015-01-01", "2015-01-01")
 #' \dontrun{
 #' # Return daily event details from 01 Oct 2014 to 08 Oct 2014
 #' events <- get_events_detail("2014-10-01", "2014-10-08")
 #' }
+#' @seealso \code{\link{get_events}}
 #' @export
 
 get_events_detail <- function(from, to) {
@@ -383,6 +391,8 @@ get_events_detail <- function(from, to) {
 #' @return A data frame of daily weather summaries for each day in the specified
 #'  range.
 #' @examples
+#' # Return weather summary for 01 January 2015
+#' weather <- get_daily_weather("2015-01-01", "2015-01-01")
 #' \dontrun{
 #' # Return daily weather summaries from 01 Oct 2014 to 17 Jul 2016
 #' weather <- get_daily_weather("2014-10-01", "2016-07-17")
@@ -403,12 +413,11 @@ get_daily_weather <- function(from, to) {
     
     # If we've been asked for more than 398 records, chop into chunks (table
     # on the site only shows up to 398 records at once!)
-    if (lubridate::as_date(to) - lubridate::as_date(from) > 398) {
-        from_dates <- seq(lubridate::as_date(from), lubridate::as_date(to), by = "395 day")
-        to_dates <- from_dates + 394
-        # Last one needs to be up to "to"
-        to_dates[length(to_dates)] <- lubridate::as_date(to)
-    }
+    from_dates <- seq(lubridate::as_date(from), lubridate::as_date(to), by = "395 day")
+    to_dates <- from_dates + 394
+    # Last one needs to be up to "to" - and add 1 extra day, else single-day
+    # requests don't work
+    to_dates[length(to_dates)] <- lubridate::as_date(to) + 1
     
     
     # Initialise an empty data frame
@@ -491,6 +500,7 @@ get_daily_weather <- function(from, to) {
         
     }
     
-    # Return the table!
-    weather
+    # Return the table! (Trim the last row, because remember we had to ask for 1
+    # extra day)
+    weather[1:(nrow(weather)-1), ]
 }

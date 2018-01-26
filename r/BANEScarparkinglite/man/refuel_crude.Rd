@@ -18,7 +18,7 @@ Update  data frame of raw records with any records that have since been added
  to the Bath: Hacked datastore.
 }
 \examples{
-\dontrun{
+\donttest{
 raw_data <- get_all_crude()
 
 # Some time later...

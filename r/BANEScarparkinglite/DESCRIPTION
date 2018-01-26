@@ -3,12 +3,16 @@ Type: Package
 Title: Working with Car Parking Data for Bath and North East Somerset
 Version: 0.1.1
 Authors@R: c(person("Owen", "Jones", email = "olj23@bath.ac.uk", role = c("aut", "cre")),
-    person("Ryan", "Kenning", role = c("aut", "ctb")))
+    person("Ryan", "Kenning", role = c("aut", "ctb")),
+    person("Nick", "Howlett", role = "ctb"))
 Description: Contains functions for importing and working with the BANES car parking
   records and other related datasets. For the full version of the package, including
-  all datasets, see the repo at https://github.com/owenjonesuob/BANEScarparking.
+  all datasets, see the repo at <https://github.com/owenjonesuob/BANEScarparking>.
+  The original dataset of parking records can be found at
+  <https://data.bathhacked.org/Government-and-Society/BANES-Historic-Car-Park-Occupancy/x29s-cczc>.
 License: MIT + file LICENSE
 URL: https://github.com/owenjonesuob/BANEScarparkinglite
+BugReports: https://github.com/owenjonesuob/BANEScarparkinglite
 Imports:
     dplyr,
     httr,

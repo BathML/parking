@@ -28,7 +28,9 @@ Web scraping function to retrieve the number of events advertised at
   function with more detailed commentary!}
 }
 \examples{
-\dontrun{
+# Return event count for 01 January 2015
+events <- get_events("2015-01-01", "2015-01-01")
+\donttest{
 # Return daily event counts from 01 Oct 2014 to 17 Jul 2015
 events <- get_events("2014-10-01", "2015-07-17")
 
@@ -38,4 +40,7 @@ df <- refine(raw_data)
 
 events <- get_events(min(df$LastUpdate), max(df$LastUpdate))
 }
+}
+\seealso{
+\code{\link{get_events_detail}}
 }
