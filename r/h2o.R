@@ -5,7 +5,7 @@
 #===== Preparing our data =====
 
 # Load the BANEScarparking package (for the data!)
-# Install or update first if necessary (make sure you're on v0.1.3):
+# Install or update first if necessary (make sure you're on at least v0.1.3):
 # install.packages("devtools")
 # devtools::install_github("owenjonesuob/BANEScarparking")
 library(BANEScarparking)

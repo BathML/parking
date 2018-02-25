@@ -23,9 +23,15 @@ Web scraping function to retrieve the detail for events advertised at
  dates.
 }
 \examples{
+# Return event details for 01 January 2015
+events <- get_events_detail("2015-01-01", "2015-01-01")
+\dontrun{
 # Return daily event details from 01 Oct 2014 to 08 Oct 2014
 events <- get_events_detail("2014-10-01", "2014-10-08")
-
+}
+}
+\seealso{
+\code{\link{get_events}}
 }
 \author{
 Ryan Kenning (@rkenning)

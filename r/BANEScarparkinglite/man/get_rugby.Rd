@@ -22,8 +22,11 @@ Web scraping function to gather dates and times of Bath Rugby matches, and
   \href{https://github.com/owenjonesuob/BANEScarparking/blob/master/R/web_scraping.R}{here}}.
 }
 \examples{
+# Return matches from 2016/17 season
+rugby <- get_rugby(2017)
+\donttest{
 # Return matches from 2014/15, 2015/16 seasons
 seasons <- c(2015, 2016)
 rugby <- get_rugby(seasons)
-
+}
 }

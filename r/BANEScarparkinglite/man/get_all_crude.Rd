@@ -17,9 +17,11 @@ Reads the entire CSV file found on the Bath: Hacked datastore
  run, depending on your internet connection.}
 }
 \examples{
+\donttest{
 raw_data <- get_all_crude()
 
 str(raw_data)
+}
 }
 \seealso{
 \itemize{

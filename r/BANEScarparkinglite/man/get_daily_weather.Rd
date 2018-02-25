@@ -21,27 +21,21 @@ A data frame of daily weather summaries for each day in the specified
 This function scrapes the \href{https://www.wunderground.com/}{Wunderground}
  website to get daily weather summaries for Bath over a given date range.
 }
-\note{
-The website can only display up to 398 records in one go; asking for
- more than this will only give you 398 records, starting at \code{from}!
-}
 \examples{
-# Return daily weather summaries from 01 Oct 2014 to 17 Jul 2015
-weather <- get_daily_weather("2014-10-01", "2015-07-17")
+# Return weather summary for 01 January 2015
+weather <- get_daily_weather("2015-01-01", "2015-01-01")
+\dontrun{
+# Return daily weather summaries from 01 Oct 2014 to 17 Jul 2016
+weather <- get_daily_weather("2014-10-01", "2016-07-17")
 
 
-## Return daily event counts for all days in date range of parking records:
-## we have to do it in chunks because there are too many to collect in one go
+# Return daily event counts for all days in date range of parking records
 
-# library(lubridate)
+library(lubridate)
 
-# raw_data <- get_all_crude()
-# df <- refine(raw_data)
+raw_data <- get_all_crude()
+df <- refine(raw_data)
 
-# weather <- rbind(get_daily_weather(min(df$LastUpdate),
-#                                    min(df$LastUpdate) + years(1)),
-#                  get_daily_weather(min(df$LastUpdate) + years(1) + days(1),
-#                                    min(df$LastUpdate) + years(2)),
-#                  get_daily_weather(min(df$LastUpdate) + years(2) + days(1),
-#                                    max(df$LastUpdate)))
+weather <- rbind(get_daily_weather(min(df$LastUpdate), max(df$LastUpdate))
+}
 }

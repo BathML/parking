@@ -20,11 +20,13 @@ Update data frame of records already processed with \code{\link{refine}} with
  any records that have since been added to the Bath: Hacked datastore.
 }
 \examples{
-# raw_data <- get_all_crude()
-# df <- refine(get_all_crude)
+\donttest{
+raw_data <- get_all_crude()
+df <- refine(get_all_crude)
 
-## Add most recent records
-# df <- refuel(df)
+# Some time later, add most recent records
+df <- refuel(df)
+}
 }
 \seealso{
 \itemize{

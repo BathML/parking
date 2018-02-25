@@ -47,6 +47,11 @@ Uses functions from the \code{dplyr} package to clean up raw records obtained
 }
 }
 \examples{
+\dontshow{
+load(system.file("tests", "testthat", "data", "raw.rda", package = "BANEScarparkinglite"))
+refined <- refine(raw)
+}
+\donttest{
 raw_data <- get_all_crude()
 some_records <- raw_data[1:1000, ]
 
@@ -56,4 +61,5 @@ dim(some_records)
 df <- refine(raw_data)
 dim(df)
 ## 813   7
+}
 }

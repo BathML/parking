@@ -11,7 +11,8 @@ NULL
 
 ## Quiets concerns of R CMD check re variables that appear in pipelines
 if(getRversion() >= "2.15.1")  {
-    utils::globalVariables(c(".", "GMT", "month", "year", "day", "Date",
+    utils::globalVariables(c(".", "GMT", "month", "year", "day",
+                             "max_gust_kmph", "precip_type", "Date",
                              "name", "lastupdate", "dateuploaded", "occupancy",
                              "capacity", "status", "Name", "Status",
                              "Occupancy", "Capacity", "Proportion",

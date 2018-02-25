@@ -34,6 +34,11 @@
 #'  \item{Proportion}{Calculated as (Occupancy/Capacity).}
 #' }
 #' @examples
+#' \dontshow{
+#' load(system.file("tests", "testthat", "data", "raw.rda", package = "BANEScarparkinglite"))
+#' refined <- refine(raw)
+#' }
+#' \donttest{
 #' raw_data <- get_all_crude()
 #' some_records <- raw_data[1:1000, ]
 #'
@@ -43,6 +48,7 @@
 #' df <- refine(raw_data)
 #' dim(df)
 #' ## 813   7
+#' }
 #' @export
 
 refine <- function(x, max_prop = 1.1, first_upload = FALSE) {

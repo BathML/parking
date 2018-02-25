@@ -7,9 +7,9 @@
 get_range_crude(from = NULL, to = NULL, abbrs = NULL)
 }
 \arguments{
-\item{from}{Datetime object for the earliest record to retrieve.}
+\item{from}{Datetime object (or "YYYY-MM-DD HH:MM:SS" string) for the earliest record to retrieve.}
 
-\item{to}{Datetime object for the latest record to retrieve.}
+\item{to}{Datetime object (or "YYYY-MM-DD HH:MM:SS" string) for the latest record to retrieve.}
 
 \item{abbrs}{Abbreviations of names of car parks from which to retrieve
 records:
@@ -32,20 +32,15 @@ Car parking records from the specified date range.
 Retrieve raw records uploaded to the datastore within a specified date range and/or from a subset of car parks.
 }
 \examples{
-library(lubridate)
-
-# Records for June 2016
-raw_data <- get_range_crude(ymd_hms("2016-06-01 00:00:00"),
-                            ymd_hms("2016-06-30 23:59:59"))
-
+# Records for 1st June 2016
+raw_data <- get_range_crude("2016-06-01 00:00:00", "2016-06-01 23:59:59")
+\donttest{
 # All records from Podium CP since 14:30 on 1st January 2017
-raw_data <- get_range_crude(from = ymd_hms("2017-01-01 14:30:00"),
-                            abbrs = "p")
+raw_data <- get_range_crude(from = "2017-01-01 14:30:00", abbrs = "p")
 
 # All records from P+Rs before 2015
-raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"),
-                            abbrs = c("l", "n", "od"))
-
+raw_data <- get_range_crude(to = "2014-12-31 23:59:59", abbrs = c("l", "n", "od"))
+}
 }
 \seealso{
 \code{\link{get_all_crude}}

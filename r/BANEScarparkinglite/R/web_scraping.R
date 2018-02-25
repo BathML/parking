@@ -11,31 +11,34 @@
 #' @param x A vector of years of seasons to retrieve records from.
 #' @return A data frame of kick-off date-times and match outcomes.
 #' @examples
+#' # Return matches from 2016/17 season
+#' rugby <- get_rugby(2017)
+#' \donttest{
 #' # Return matches from 2014/15, 2015/16 seasons
 #' seasons <- c(2015, 2016)
 #' rugby <- get_rugby(seasons)
-#'
+#' }
 #' @export
 
 get_rugby <- function(x) {
-
+    
     # Set up data frame, to be added to shortly
     rugby <- data.frame(GMT = character(0), HomeWin = logical(0))
-
+    
     # For each season:
     for (i in 1:length(x)) {
-
+        
         # Put together the link to the webpage for the season's fixtures
         address <- paste0("https://www.bathrugby.com/fixtures-results/",
                           "results-tables/results-match-reports/",
                           "?seasonEnding=", x[i])
-
-
+        
+        
         # "Parse" page so we can work with it in R
         parsedpage <- RCurl::getURL(address,
                                     .opts = RCurl::curlOptions(followlocation = TRUE)) %>%
             XML::htmlParse()
-
+        
         # Scrape required information from page (first, home match dates):
         # xpathSApply returns a vector (simplified from a list, hence SApply
         # rather than Apply) of HTML "nodes" satisfying certain conditions...
@@ -75,7 +78,7 @@ get_rugby <- function(x) {
             as.POSIXct(format = "%n%e %b %Y", tz = "UTC") %>%
             # Reverse order of elements (to restore chronological order)
             rev()
-
+        
         # Now, kick-off times:
         KO <- XML::xpathSApply(parsedpage,
                                paste0("//dd[@class='fixture homeFixture']",
@@ -87,10 +90,10 @@ get_rugby <- function(x) {
             # Convert to hour-minute time
             lubridate::hm() %>%
             rev()
-
+        
         # Combine date and time (just use +, R handles this for us!)
         GMT <- dates + KO
-
+        
         # Results of the matches: did Bath win? (Maybe people hang around in
         # town for longer afterwards if so.)
         HomeWin <- XML::xpathSApply(parsedpage,
@@ -105,14 +108,14 @@ get_rugby <- function(x) {
             # have to use "." to represent it.
             grepl("won", .) %>%
             rev()
-
+        
         # Stick the GMT and HomeWin vectors together as columns of a data frame
         toAdd <- data.frame(GMT, HomeWin)
-
+        
         # Attach this dataframe to the existing data frame of all matches
         rugby <- rbind(rugby, toAdd)
     }
-
+    
     # Return the complete data frame
     rugby
 }
@@ -139,58 +142,63 @@ get_rugby <- function(x) {
 #' @return A data frame of daily event counts for each day in the specified
 #'  range.
 #' @examples
+#' # Return event count for 01 January 2015
+#' events <- get_events("2015-01-01", "2015-01-01")
+#' \donttest{
 #' # Return daily event counts from 01 Oct 2014 to 17 Jul 2015
 #' events <- get_events("2014-10-01", "2015-07-17")
 #'
-#' ## Return daily event counts for all months in date range of parking records
-#' # raw_data <- get_all_crude()
-#' # df <- refine(raw_data)
+#' # Return daily event counts for all months in date range of parking records
+#' raw_data <- get_all_crude()
+#' df <- refine(raw_data)
 #'
-#' # events <- get_events(min(df$LastUpdate), max(df$LastUpdate))
+#' events <- get_events(min(df$LastUpdate), max(df$LastUpdate))
+#' }
+#' @seealso \code{\link{get_events_detail}}
 #' @export
 
 get_events <- function(from, to) {
-
+    
     # Get all year-month combinations in specified range
     year_month <- seq(as.Date(from), as.Date(to), by = "months") %>%
         substr(., 0, nchar(.)+2)
-
+    
     # Create web addresses for past events pages
     addresses <- paste0("http://www.bath.co.uk/events/", year_month)
-
+    
     # Initialize event-count vector
     event_count <- vector("list", length(addresses))
     names(event_count) <- year_month
     
     # Create a text bar in the console
-
+    
     pb <- utils::txtProgressBar(min = 0, max = length(addresses),
                                 initial = 0, style = 3)
     
     # For each year-month:
     for (i in 1:length(addresses)) {
-
+        
         # "Parse" page so we can work with it in R
         parsedpage <- RCurl::getURL(addresses[i],
                                     .opts = RCurl::curlOptions(followlocation = TRUE)) %>%
             XML::htmlParse()
-
+        
         # Find all days from current month
         day_events <- XML::xpathApply(parsedpage,
                                       paste0("//td[contains(@class, ",
                                              "'tribe-events-thismonth')]"))
-
+        
         # Set up a vector to store number of events from each day in a month
         daily_event_count <- vector("integer", length(day_events))
-
+        
         # For each day:
         for (j in 1:length(day_events)) {
-
+            
             # Look for a "view more" node
             view_more <- XML::xpathSApply(day_events[[j]],
-                                         "div[@class='tribe-events-viewmore']",
-                                         XML::xmlValue)
-
+                                          "div[@class='tribe-events-viewmore']",
+                                          XML::xmlValue)
+            
             # If such a node exists...
             if (length(view_more) > 0) {
                 # ... it contains a string of the form "View all x events", so
@@ -209,33 +217,33 @@ get_events <- function(from, to) {
                     length() - 1
             }
         }
-
+        
         # Add this list to our list of year-month event counts
         event_count[[i]] <- daily_event_count
         
         # Update progress bar
         utils::setTxtProgressBar(pb, i)
     }
-
+    
     # Trim the last month... (events only up to "to" date)
     lec <- length(event_count)
     event_count[[lec]] <- event_count[[lec]][1:{lubridate::day(to)}]
-
+    
     # Then the first month... (events only from "from" date)
     event_count[[1]] <- event_count[[1]][{lubridate::day(from)}:length(event_count[[1]])]
-
-
+    
+    
     # Get all dates in the months we are looking at
     all_dates <- seq(as.Date(from), as.Date(to), by = "days")
-
+    
     # Make a data frame with each date and the number of events that day:
     # "unlist" does exactly as it says on the tin, it just stretches a list out
     # into a long vector
     events <- data.frame(Date = all_dates, count = unlist(event_count))
-
+    
     # Get rid of unnecessary numeric row names
     rownames(events) <- NULL
-
+    
     # Return the complete data frame!
     events
 }
@@ -257,25 +265,29 @@ get_events <- function(from, to) {
 #' @return A data frame of daily event details for each day in the specified
 #'  range of months.
 #' @examples
+#' # Return event details for 01 January 2015
+#' events <- get_events_detail("2015-01-01", "2015-01-01")
+#' \dontrun{
 #' # Return daily event details from 01 Oct 2014 to 08 Oct 2014
 #' events <- get_events_detail("2014-10-01", "2014-10-08")
-#'
+#' }
+#' @seealso \code{\link{get_events}}
 #' @export
 
 get_events_detail <- function(from, to) {
-
+    
     # Get all year-month combinations in specified range
     year_month_day_seq <- seq(as.Date(from), as.Date(to), by = "days") %>%
         substr(., 0, nchar(.)+6)
-
+    
     # Create web addresses for past event pages
     addresses <- paste0("http://www.bath.co.uk/events/", year_month_day_seq)
-
+    
     # Initialize event-count vector
     event_count <- vector("list", length(addresses))
     names(event_count) <- year_month_day_seq
-
-
+    
+    
     # Initialise 0 length vectors to create the initial DF object (Not sure if this is the best approach to append to a df type pattern)
     year_month_day <- vector(mode="character",0)
     event_name <- vector(mode="character", 0)
@@ -286,9 +298,9 @@ get_events_detail <- function(from, to) {
     event_start <- vector(mode="character", 0)
     event_end <- vector(mode="character", 0)
     time_slot <- vector(mode="character", 0)
-
+    
     # Create the initial df (Not sure if this is the best approach to append to a df type pattern)
-    events <- data.frame(year_month_day, time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
+    events <- data.frame(year_month_day, time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end, stringsAsFactors = FALSE)
     
     # Add a progress bar to the console
     pb <- utils::txtProgressBar(min = 0, max = length(year_month_day_seq),
@@ -300,11 +312,11 @@ get_events_detail <- function(from, to) {
         url <- addresses[ymd]
         # Parse the HTML page
         webpage <- xml2::read_html(url)
-
+        
         # Find the Timeslot HTML nodes
         event_time_slot <- webpage %>%
             rvest::html_nodes(".tribe-events-day-time-slot")
-
+        
         #Loop through the timeslots
         for (i in 2:length(event_time_slot)){
             # Get the current timeslot header text
@@ -314,7 +326,7 @@ get_events_detail <- function(from, to) {
             # From the current timeslot, get the event detail html node
             event_detail_nodes <- event_time_slot[i] %>%
                 rvest::html_nodes(xpath=".//div[contains(@class, 'type-tribe_events')]")
-
+            
             # Initialise the value vectors with the length based on number of events found
             event_name <- vector(mode="character", length=length(event_detail_nodes))
             event_location_name <- vector(mode="character", length=length(event_detail_nodes))
@@ -324,18 +336,17 @@ get_events_detail <- function(from, to) {
             event_start <- vector(mode="character", length=length(event_detail_nodes))
             event_end <- vector(mode="character", length=length(event_detail_nodes))
             time_slot <- rep(time_slot_val,length=length(event_detail_nodes))
-
-
+            
+            
             # Revised html text function to retun NA if no HTML text value can be found
             html_text_na <- function(x, ...) {
-
+                
                 txt <- try(rvest::html_text(x, ...))
-                if (inherits(txt, "try-error") |
-                    (length(txt)==0)) { return(NA) }
+                if (inherits(txt, "try-error") || (length(txt)==0)) { return(NA) }
                 return(txt)
-
+                
             }
-
+            
             # Loop through each event node
             for (j in 1:length(event_detail_nodes)){
                 #Add parsed event
@@ -347,8 +358,8 @@ get_events_detail <- function(from, to) {
                 event_start[j] <- rvest::html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-event-date-start')]") %>% html_text_na()
                 event_end[j] <- rvest::html_node(event_detail_nodes[j], xpath=".//*[contains(concat( ' ', @class, ' ' ), 'tribe-event-date-end')]") %>% html_text_na()
             }
-
-
+            
+            
             # Make a Dataframe from the populated vectors (only if there are any events)
             if (length(event_detail_nodes)) {
                 new_events <- data.frame(year_month_day_seq[ymd], time_slot, event_name, event_location_name, event_postcode, event_street, event_locality, event_start, event_end)
@@ -373,9 +384,6 @@ get_events_detail <- function(from, to) {
 #' This function scrapes the \href{https://www.wunderground.com/}{Wunderground}
 #'  website to get daily weather summaries for Bath over a given date range.
 #'
-#' @note The website can only display up to 398 records in one go; asking for
-#'  more than this will only give you 398 records, starting at \code{from}!
-#'
 #' @param from A date or date-time object, or YYYY-MM-DD string: the first day
 #'  from which to get a weather summary.
 #' @param to A date or date-time object, or YYYY-MM-DD string: the last day
@@ -383,88 +391,116 @@ get_events_detail <- function(from, to) {
 #' @return A data frame of daily weather summaries for each day in the specified
 #'  range.
 #' @examples
-#' # Return daily weather summaries from 01 Oct 2014 to 17 Jul 2015
-#' weather <- get_daily_weather("2014-10-01", "2015-07-17")
+#' # Return weather summary for 01 January 2015
+#' weather <- get_daily_weather("2015-01-01", "2015-01-01")
+#' \dontrun{
+#' # Return daily weather summaries from 01 Oct 2014 to 17 Jul 2016
+#' weather <- get_daily_weather("2014-10-01", "2016-07-17")
 #'
 #'
-#' ## Return daily event counts for all days in date range of parking records:
-#' ## we have to do it in chunks because there are too many to collect in one go
+#' # Return daily event counts for all days in date range of parking records
 #' 
-#' # library(lubridate)
+#' library(lubridate)
 #'
-#' # raw_data <- get_all_crude()
-#' # df <- refine(raw_data)
+#' raw_data <- get_all_crude()
+#' df <- refine(raw_data)
 #'
-#' # weather <- rbind(get_daily_weather(min(df$LastUpdate),
-#' #                                    min(df$LastUpdate) + years(1)),
-#' #                  get_daily_weather(min(df$LastUpdate) + years(1) + days(1),
-#' #                                    min(df$LastUpdate) + years(2)),
-#' #                  get_daily_weather(min(df$LastUpdate) + years(2) + days(1),
-#' #                                    max(df$LastUpdate)))
+#' weather <- rbind(get_daily_weather(min(df$LastUpdate), max(df$LastUpdate))
+#' }
 #' @export
 
 get_daily_weather <- function(from, to) {
-
-    # Make start date into correct format, and extract numbers from end date
-    from_day <- gsub("-", "/", as.character(as.Date(from)))
-    day_end <- lubridate::day(lubridate::as_date(to))
-    month_end <- lubridate::month(lubridate::as_date(to))
-    year_end <- lubridate::year(lubridate::as_date(to))
-
-    # Set up the URL query (EGTG is closest location to Bath)
-    url <- paste0("https://www.wunderground.com/history/airport/EGTG/",
-                  from_day,
-                  "/CustomHistory.html?dayend=", day_end,
-                  "&monthend=", month_end,
-                  "&yearend=", year_end,
-                  "&req_city=&req_state=&req_statename=&reqdb.zip=&reqdb.magic=&reqdb.wmo=")
-
-    # Get the HTML content of the webpage
-    wg <- xml2::read_html(url)
-
-    # Find the second table on the webpage (the massive weather table)
-    wgtab <- rvest::html_table(wg, header = FALSE)[[2]]
-
-    # Set column names
-    names(wgtab) <- c("GMT", "Max TemperatureC", "Mean TemperatureC",
-                      "Min TemperatureC", "Max DewPointC", "Mean DewPointC",
-                      "Min DewpointC", "Max Humidity", "Mean Humidity",
-                      "Min Humidity", "Max Sea Level PressurehPa",
-                      "Mean Sea Level PressurehPa", "Min Sea Level PressurehPa",
-                      "Max VisibilityKm", "Mean VisibilityKm", "Min VisibilitykM",
-                      "Max Wind SpeedKm/h", "Mean Wind SpeedKm/h",
-                      "Max Gust SpeedKm/h", "Precipitationmm",
-                      "Events")
-
-    # The GMT column of the table currently contains years, months AND days;
-    # we'll use regex to separate them out into new columns
-    #   First, if GMT contains a 1 or 2-digit number then this must be a day
-    #   number, so put this number into a new column; or put in an NA if GMT
-    #   did NOT contain a1 or 2-digit number
-    wgtab <- dplyr::mutate(wgtab, day = ifelse(grepl("^\\d{1,2}$", GMT), GMT, NA),
-                           # Do the same for 3-character strings (month names)
-                           month = ifelse(grepl("^[A-Za-z]{3}$", GMT), GMT, NA),
-                           # Do the same for 4-digit numbers (year numbers)
-                           year = ifelse(grepl("^\\d{4}$", GMT), GMT, NA)) %>%
-        # Whenever there's an NA in the month or year columns (i.e. most of the
-        # time!) fill in each block of NAs with the first previous non-NA value;
-        #   e.g. Jan  becomes  Jan
-        #        NA            Jan
-        #        NA            Jan
-        #        Feb           Feb
-        #        NA            Feb
-        dplyr::mutate(month = zoo::na.locf(month, na.rm = FALSE),
-                      year = zoo::na.locf(year, na.rm = FALSE)) %>%
-        # Wherever there's an NA in the day column, this was a row containing
-        # (unnecessary) headers, rather than data; so we drop these rows
-        dplyr::filter(!is.na(day)) %>%
-        # Now we stick the year-month-day columns together and convert to a date
-        dplyr::mutate(Date = lubridate::ymd(paste(year, month, day, sep = "-"))) %>%
-        # Then we can drop the old GMT column and the year-month-day columns
-        dplyr::select(-day, -month, -year, -GMT) %>%
-        # Re-order the columns to get Date on the left (currently on the right)
-        dplyr::select(Date, dplyr::everything())
-
-    # Return the table!
-    wgtab
+    
+    # If we've been asked for more than 398 records, chop into chunks (table
+    # on the site only shows up to 398 records at once!)
+    from_dates <- seq(lubridate::as_date(from), lubridate::as_date(to), by = "395 day")
+    to_dates <- from_dates + 394
+    # Last one needs to be up to "to" - and add 1 extra day, else single-day
+    # requests don't work
+    to_dates[length(to_dates)] <- lubridate::as_date(to) + 1
+    
+    
+    # Initialise an empty data frame
+    weather <- data.frame()
+    
+    
+    for (i in seq_along(from_dates)) {
+        
+        # Make start date into correct format, and extract numbers from end date
+        from_day <- gsub("-", "/", as.character(from_dates[i]))
+        day_end <- lubridate::day(to_dates[i])
+        month_end <- lubridate::month(to_dates[i])
+        year_end <- lubridate::year(to_dates[i])
+        
+        
+        
+        
+        # Set up the URL query (EGTG is closest location to Bath)
+        url <- paste0("https://www.wunderground.com/history/airport/EGTG/",
+                      from_day,
+                      "/CustomHistory.html?dayend=", day_end,
+                      "&monthend=", month_end,
+                      "&yearend=", year_end,
+                      "&req_city=&req_state=&req_statename=&reqdb.zip=&reqdb.magic=&reqdb.wmo=")
+        
+        # Get the HTML content of the webpage
+        wg <- xml2::read_html(url)
+        
+        # Find the second table on the webpage (the massive weather table)
+        wgtab <- rvest::html_table(wg, header = FALSE)[[2]]
+        
+        # Set column names
+        names(wgtab) <- c("GMT", "max_temp_c", "mean_temp_c",
+                          "min_temp_c", "max_dewpoint_c", "mean_dewpoint_c",
+                          "min_dewpoint_c", "max_humidity", "mean_humidity",
+                          "min_humidity", "max_pressure_hpa",
+                          "mean_pressure_hpa", "min_pressure_hpa",
+                          "max_visibility_km", "mean_visibility_km", "min_visibility_km",
+                          "max_wind_kmph", "mean_wind_kmph",
+                          "max_gust_kmph", "precip_mm", "precip_type")
+        
+        # The GMT column of the table currently contains years, months AND days;
+        # we'll use regex to separate them out into new columns
+        #   First, if GMT contains a 1 or 2-digit number then this must be a day
+        #   number, so put this number into a new column; or put in an NA if GMT
+        #   did NOT contain a1 or 2-digit number
+        wgtab <- dplyr::mutate(wgtab, day = ifelse(grepl("^\\d{1,2}$", GMT), GMT, NA),
+                               # Do the same for 3-character strings (month names)
+                               month = ifelse(grepl("^[A-Za-z]{3}$", GMT), GMT, NA),
+                               # Do the same for 4-digit numbers (year numbers)
+                               year = ifelse(grepl("^\\d{4}$", GMT), GMT, NA)) %>%
+            # Whenever there's an NA in the month or year columns (i.e. most of the
+            # time!) fill in each block of NAs with the first previous non-NA value;
+            #   e.g. Jan  becomes  Jan
+            #        NA            Jan
+            #        NA            Jan
+            #        Feb           Feb
+            #        NA            Feb
+            dplyr::mutate(month = zoo::na.locf(month, na.rm = FALSE),
+                          year = zoo::na.locf(year, na.rm = FALSE)) %>%
+            # Wherever there's an NA in the day column, this was a row containing
+            # (unnecessary) headers, rather than data; so we drop these rows
+            dplyr::filter(!is.na(day)) %>%
+            # Now we stick the year-month-day columns together and convert to a date
+            dplyr::mutate(Date = lubridate::ymd(paste(year, month, day, sep = "-"))) %>%
+            # Then we can drop the old GMT column and the year-month-day columns
+            dplyr::select(-day, -month, -year, -GMT) %>%
+            # Re-order the columns to get Date on the left (currently on the right)
+            dplyr::select(Date, dplyr::everything()) %>%
+            # Lastly, the max_gust_kmph column is always empty, and precip_type
+            # column needs splitting into separate columns
+            dplyr::mutate("was_rainy" = grepl("Rain", precip_type),
+                          "was_snowy" = grepl("Snow", precip_type),
+                          "was_foggy" = grepl("Fog", precip_type)) %>%
+            dplyr::select(-max_gust_kmph, -precip_type)
+        
+        
+        # Add this set or records to the table
+        weather <- dplyr::bind_rows(weather, wgtab)
+        
+    }
+    
+    # Return the table! (Trim the last row, because remember we had to ask for 1
+    # extra day)
+    weather[1:(nrow(weather)-1), ]
 }

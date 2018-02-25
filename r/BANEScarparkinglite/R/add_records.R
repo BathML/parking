@@ -8,9 +8,11 @@
 #'
 #' @return The full dataset of car parking records
 #' @examples
+#' \donttest{
 #' raw_data <- get_all_crude()
 #'
 #' str(raw_data)
+#' }
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{refuel_crude}} for updating raw records
@@ -41,8 +43,12 @@ get_all_crude <- function() {
 #'  \code{\link{get_all_crude}}).
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' # raw_data <- get_all_crude()
-#' # raw_data <- refuel_crude(raw_data)
+#' \donttest{
+#' raw_data <- get_all_crude()
+#' 
+#' # Some time later...
+#' raw_data <- refuel_crude(raw_data)
+#' }
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records
@@ -90,11 +96,13 @@ refuel_crude <- function(x) {
 #' @param max_prop,first_upload See \code{\link{refine}}.
 #' @return The data frame updated with any more recent records.
 #' @examples
-#' # raw_data <- get_all_crude()
-#' # df <- refine(get_all_crude)
+#' \donttest{
+#' raw_data <- get_all_crude()
+#' df <- refine(get_all_crude)
 #' 
-#' ## Add most recent records
-#' # df <- refuel(df)
+#' # Some time later, add most recent records
+#' df <- refuel(df)
+#' }
 #' @seealso
 #' \itemize{
 #'  \item \code{\link{get_all_crude}} for obtaining data frame of raw records
@@ -136,8 +144,8 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
 #'
 #' Retrieve raw records uploaded to the datastore within a specified date range and/or from a subset of car parks.
 #'
-#' @param from Datetime object for the earliest record to retrieve.
-#' @param to Datetime object for the latest record to retrieve.
+#' @param from Datetime object (or "YYYY-MM-DD HH:MM:SS" string) for the earliest record to retrieve.
+#' @param to Datetime object (or "YYYY-MM-DD HH:MM:SS" string) for the latest record to retrieve.
 #' @param abbrs Abbreviations of names of car parks from which to retrieve
 #'   records:
 #'   \describe{
@@ -153,24 +161,23 @@ refuel <- function(x, max_prop = 1.1, first_upload = FALSE) {
 #'   }
 #' @return Car parking records from the specified date range.
 #' @examples
-#' library(lubridate)
-#'
-#' # Records for June 2016
-#' raw_data <- get_range_crude(ymd_hms("2016-06-01 00:00:00"),
-#'                             ymd_hms("2016-06-30 23:59:59"))
-#'
+#' # Records for 1st June 2016
+#' raw_data <- get_range_crude("2016-06-01 00:00:00", "2016-06-01 23:59:59")
+#' \donttest{
 #' # All records from Podium CP since 14:30 on 1st January 2017
-#' raw_data <- get_range_crude(from = ymd_hms("2017-01-01 14:30:00"),
-#'                             abbrs = "p")
+#' raw_data <- get_range_crude(from = "2017-01-01 14:30:00", abbrs = "p")
 #'
 #' # All records from P+Rs before 2015
-#' raw_data <- get_range_crude(to = ymd_hms("2014-12-31 23:59:59"),
-#'                             abbrs = c("l", "n", "od"))
-#'
+#' raw_data <- get_range_crude(to = "2014-12-31 23:59:59", abbrs = c("l", "n", "od"))
+#' }
 #' @seealso \code{\link{get_all_crude}}
 #' @export
 
 get_range_crude <- function(from = NULL, to = NULL, abbrs = NULL) {
+    
+    from_dt <- lubridate::as_datetime(from)
+    to_dt <- lubridate::as_datetime(to)
+    
     token <- "3YCzwzu21i55UgommFeIikrkm"
     if (!is.null(abbrs)) {
         full <- c("Avon%20Street%20CP", "Charlotte%20Street%20CP", "Lansdown%20P%2BR",
@@ -185,11 +192,11 @@ get_range_crude <- function(from = NULL, to = NULL, abbrs = NULL) {
                    "$limit=10000000&$order=dateuploaded",
                    ifelse(is.null(from), "",
                           paste0("&$where=dateuploaded%20>=%20%27",
-                                 gsub(" ", "T", (from - 0.5)), "%27")),
+                                 gsub(" ", "T", (from_dt - 0.5)), "%27")),
                    ifelse(is.null(to), "",
                           paste0(ifelse(is.null(from), "&$where=", "%20and%20"),
                                  "dateuploaded%20<=%20%27",
-                                 gsub(" ", "T", (to - 0.5)), "%27")),
+                                 gsub(" ", "T", (to_dt - 0.5)), "%27")),
                    ifelse(is.null(abbrs), "",
                           paste0(ifelse(is.null(c(from, to)),
                                         "&$where=", "%20and%20"),
