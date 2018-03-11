@@ -1,10 +1,24 @@
-library(plumber, lib.loc = "C:/Users/piotr/OneDrive/Documents/R/win-library/3.4")
-library(h2o, lib.loc = "C:/Users/piotr/OneDrive/Documents/R/win-library/3.4")
+# Very often R.exe & Rscript.exe do not have information where the user packages are installed,
+# when they are run non-interactively. The R_USER_LIBS environment variable should be defined
+# on the system and contain information on where to search.
+if (length(.libPaths()) == 1) {
+  user_lib <- Sys.getenv("R_USER_LIBS")
+  .libPaths(user_lib)
+}
+
+library(plumber)
+library(h2o)
 
 h2o.init()
-h2o.loadModel("C:/Repos/model.dat/DRF_model_R_1520781866877_1")
+h2o.loadModel("./models/BANEScarparking_rf")
 
-plum <- plumb("./h2oserv.R")
-plum$run(port=55111)
+BANES <- plumb("./h2oserv.R")
+
+BANES$registerHook("exit", function(){
+  h2o.shutdown(prompt = FALSE)
+  print("Bye bye!")
+})
+
+BANES$run(port=55111)
 
 

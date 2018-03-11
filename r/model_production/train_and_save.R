@@ -63,7 +63,8 @@ wet_split <- h2o.splitFrame(wet, ratios = 0.8)
 
 # Train a random forest to predict bin, ignoring Date, prop, bin columns
 rf <- h2o.randomForest(y = "bin", x = -c(1, 6, 7), training_frame = wet_split[[1]],
-                       ntrees = 5)
+                       ntrees = 5, model_id = "BANEScarparking_rf")
 
-h2o.saveModel(rf, path = "C:/Repos/model.dat")
+# Save the model in the current directory
+h2o.saveModel(rf, path = "./models/")
 h2o.shutdown()
